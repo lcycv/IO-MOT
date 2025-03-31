@@ -1,0 +1,23 @@
+SUPER_CONFIG_PATH: ./configs/IOMOT_dancetrack.yaml
+
+DATASETS: [SportsMOT]
+DATASET_SPLITS: [train]
+# Inference:
+INFERENCE_MODEL: /home1/lcy/FIP-v3/outputs/SportsMOT/checkpoint_25.pth
+INFERENCE_DATASET: SportsMOT
+INFERENCE_SPLIT: test
+
+AVAILABLE_GPUS: 0,2
+USE_DISTRIBUTED:  True
+
+PERTRAIN: True
+PERTRAIN_PATH: /home1/lcy/FIP-v3/outputs/SportsMOT/checkpoint_26.pth
+
+
+
+
+EPOCHS: 27  #18
+SCHEDULER_MILESTONES: [10, 15, 20]
+
+
+OUTPUTS_DIR: ./outputs/SportsMOT

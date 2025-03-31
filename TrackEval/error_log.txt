@@ -1,0 +1,1395 @@
+MotChallenge2DBox
+MOT17-02-DPM.txt
+multiprocessing.pool.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "E:\tracking\MOTIP\TrackEval\trackeval\datasets\_base_dataset.py", line 152, in _load_simple_text_file
+    fp = open(file)
+         ^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: './outputs/r50_deformable_detr_motip_mot17/eval/default/gts/train/r50_deformable_detr_coco_mot17/tracker\\MOT17-02-DPM.txt\\data\\MOT17-02-DPM.txt'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+                    ^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 48, in mapstar
+    return list(map(*args))
+           ^^^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\_timing.py", line 64, in wrap
+    return f(*args, **kw)
+           ^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\eval.py", line 191, in eval_sequence
+    raw_data = dataset.get_raw_seq_data(tracker, seq)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\_timing.py", line 64, in wrap
+    return f(*args, **kw)
+           ^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\datasets\_base_dataset.py", line 93, in get_raw_seq_data
+    raw_tracker_data = self._load_raw_file(tracker, seq, is_gt=False)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\datasets\mot_challenge_2d_box.py", line 201, in _load_raw_file
+    read_data, ignore_data = self._load_simple_text_file(file, is_zipped=self.data_is_zipped, zip_file=zip_file)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\datasets\_base_dataset.py", line 209, in _load_simple_text_file
+    raise TrackEvalException(
+trackeval.utils.TrackEvalException: File MOT17-02-DPM.txt cannot be read because it is either not present or invalidly formatted
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "E:\tracking\MOTIP\TrackEval\trackeval\eval.py", line 81, in evaluate
+    results = pool.map(_eval_sequence, seq_list)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 367, in map
+    return self._map_async(func, iterable, mapstar, chunksize).get()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 774, in get
+    raise self._value
+trackeval.utils.TrackEvalException: File MOT17-02-DPM.txt cannot be read because it is either not present or invalidly formatted
+
+
+
+
+
+MotChallenge2DBox
+MOT17-02-DPM.txt
+multiprocessing.pool.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+                    ^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 48, in mapstar
+    return list(map(*args))
+           ^^^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\_timing.py", line 64, in wrap
+    return f(*args, **kw)
+           ^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\eval.py", line 191, in eval_sequence
+    raw_data = dataset.get_raw_seq_data(tracker, seq)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\_timing.py", line 64, in wrap
+    return f(*args, **kw)
+           ^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\datasets\_base_dataset.py", line 92, in get_raw_seq_data
+    raw_gt_data = self._load_raw_file(tracker, seq, is_gt=True)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\datasets\mot_challenge_2d_box.py", line 255, in _load_raw_file
+    raise TrackEvalException(
+trackeval.utils.TrackEvalException: GT data is not in a valid format, there is not enough rows in seq MOT17-02-DPM, timestep 0.
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "E:\tracking\MOTIP\TrackEval\trackeval\eval.py", line 81, in evaluate
+    results = pool.map(_eval_sequence, seq_list)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 367, in map
+    return self._map_async(func, iterable, mapstar, chunksize).get()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 774, in get
+    raise self._value
+trackeval.utils.TrackEvalException: GT data is not in a valid format, there is not enough rows in seq MOT17-02-DPM, timestep 0.
+
+
+
+
+
+MotChallenge2DBox
+MOT17-02-DPM.txt
+multiprocessing.pool.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "E:\tracking\MOTIP\TrackEval\trackeval\datasets\_base_dataset.py", line 152, in _load_simple_text_file
+    fp = open(file)
+         ^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: './outputs/r50_deformable_detr_motip_mot17/eval/default/gts/train/r50_deformable_detr_coco_mot17/tracker\\MOT17-02-DPM.txt\\data\\MOT17-02-DPM.txt'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+                    ^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 48, in mapstar
+    return list(map(*args))
+           ^^^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\_timing.py", line 64, in wrap
+    return f(*args, **kw)
+           ^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\eval.py", line 191, in eval_sequence
+    raw_data = dataset.get_raw_seq_data(tracker, seq)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\_timing.py", line 64, in wrap
+    return f(*args, **kw)
+           ^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\datasets\_base_dataset.py", line 93, in get_raw_seq_data
+    raw_tracker_data = self._load_raw_file(tracker, seq, is_gt=False)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\datasets\mot_challenge_2d_box.py", line 201, in _load_raw_file
+    read_data, ignore_data = self._load_simple_text_file(file, is_zipped=self.data_is_zipped, zip_file=zip_file)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\datasets\_base_dataset.py", line 209, in _load_simple_text_file
+    raise TrackEvalException(
+trackeval.utils.TrackEvalException: File MOT17-02-DPM.txt cannot be read because it is either not present or invalidly formatted
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "E:\tracking\MOTIP\TrackEval\trackeval\eval.py", line 81, in evaluate
+    results = pool.map(_eval_sequence, seq_list)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 367, in map
+    return self._map_async(func, iterable, mapstar, chunksize).get()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 774, in get
+    raise self._value
+trackeval.utils.TrackEvalException: File MOT17-02-DPM.txt cannot be read because it is either not present or invalidly formatted
+
+
+
+
+
+MotChallenge2DBox
+MOT17-02-DPM.txt
+multiprocessing.pool.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "E:\tracking\MOTIP\TrackEval\trackeval\datasets\_base_dataset.py", line 152, in _load_simple_text_file
+    fp = open(file)
+         ^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: './outputs/r50_deformable_detr_motip_mot17/eval/default/gts/train/r50_deformable_detr_coco_mot17/tracker\\MOT17-02-DPM.txt\\data\\MOT17-02-DPM.txt'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+                    ^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 48, in mapstar
+    return list(map(*args))
+           ^^^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\_timing.py", line 64, in wrap
+    return f(*args, **kw)
+           ^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\eval.py", line 191, in eval_sequence
+    raw_data = dataset.get_raw_seq_data(tracker, seq)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\_timing.py", line 64, in wrap
+    return f(*args, **kw)
+           ^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\datasets\_base_dataset.py", line 93, in get_raw_seq_data
+    raw_tracker_data = self._load_raw_file(tracker, seq, is_gt=False)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\datasets\mot_challenge_2d_box.py", line 201, in _load_raw_file
+    read_data, ignore_data = self._load_simple_text_file(file, is_zipped=self.data_is_zipped, zip_file=zip_file)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\datasets\_base_dataset.py", line 209, in _load_simple_text_file
+    raise TrackEvalException(
+trackeval.utils.TrackEvalException: File MOT17-02-DPM.txt cannot be read because it is either not present or invalidly formatted
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "E:\tracking\MOTIP\TrackEval\trackeval\eval.py", line 81, in evaluate
+    results = pool.map(_eval_sequence, seq_list)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 367, in map
+    return self._map_async(func, iterable, mapstar, chunksize).get()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 774, in get
+    raise self._value
+trackeval.utils.TrackEvalException: File MOT17-02-DPM.txt cannot be read because it is either not present or invalidly formatted
+
+
+
+
+
+MotChallenge2DBox
+MOT17-02-DPM.txt
+multiprocessing.pool.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "E:\tracking\MOTIP\TrackEval\trackeval\datasets\_base_dataset.py", line 152, in _load_simple_text_file
+    fp = open(file)
+         ^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: './outputs/r50_deformable_detr_motip_mot17/eval/default/gts/train/r50_deformable_detr_coco_mot17/tracker\\MOT17-02-DPM.txt\\data\\MOT17-02-DPM.txt'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+                    ^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 48, in mapstar
+    return list(map(*args))
+           ^^^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\_timing.py", line 64, in wrap
+    return f(*args, **kw)
+           ^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\eval.py", line 191, in eval_sequence
+    raw_data = dataset.get_raw_seq_data(tracker, seq)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\_timing.py", line 64, in wrap
+    return f(*args, **kw)
+           ^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\datasets\_base_dataset.py", line 93, in get_raw_seq_data
+    raw_tracker_data = self._load_raw_file(tracker, seq, is_gt=False)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\datasets\mot_challenge_2d_box.py", line 201, in _load_raw_file
+    read_data, ignore_data = self._load_simple_text_file(file, is_zipped=self.data_is_zipped, zip_file=zip_file)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\datasets\_base_dataset.py", line 209, in _load_simple_text_file
+    raise TrackEvalException(
+trackeval.utils.TrackEvalException: File MOT17-02-DPM.txt cannot be read because it is either not present or invalidly formatted
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "E:\tracking\MOTIP\TrackEval\trackeval\eval.py", line 81, in evaluate
+    results = pool.map(_eval_sequence, seq_list)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 367, in map
+    return self._map_async(func, iterable, mapstar, chunksize).get()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 774, in get
+    raise self._value
+trackeval.utils.TrackEvalException: File MOT17-02-DPM.txt cannot be read because it is either not present or invalidly formatted
+
+
+
+
+
+MotChallenge2DBox
+MOT17-02-DPM.txt
+multiprocessing.pool.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "E:\tracking\MOTIP\TrackEval\trackeval\datasets\_base_dataset.py", line 152, in _load_simple_text_file
+    fp = open(file)
+         ^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: './outputs/r50_deformable_detr_motip_mot17/eval/default/gts/train/r50_deformable_detr_coco_mot17/tracker\\MOT17-02-DPM.txt\\data\\MOT17-02-DPM.txt'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+                    ^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 48, in mapstar
+    return list(map(*args))
+           ^^^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\_timing.py", line 64, in wrap
+    return f(*args, **kw)
+           ^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\eval.py", line 191, in eval_sequence
+    raw_data = dataset.get_raw_seq_data(tracker, seq)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\_timing.py", line 64, in wrap
+    return f(*args, **kw)
+           ^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\datasets\_base_dataset.py", line 93, in get_raw_seq_data
+    raw_tracker_data = self._load_raw_file(tracker, seq, is_gt=False)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\datasets\mot_challenge_2d_box.py", line 200, in _load_raw_file
+    read_data, ignore_data = self._load_simple_text_file(file, is_zipped=self.data_is_zipped, zip_file=zip_file)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\datasets\_base_dataset.py", line 209, in _load_simple_text_file
+    raise TrackEvalException(
+trackeval.utils.TrackEvalException: File MOT17-02-DPM.txt cannot be read because it is either not present or invalidly formatted
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "E:\tracking\MOTIP\TrackEval\trackeval\eval.py", line 81, in evaluate
+    results = pool.map(_eval_sequence, seq_list)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 367, in map
+    return self._map_async(func, iterable, mapstar, chunksize).get()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 774, in get
+    raise self._value
+trackeval.utils.TrackEvalException: File MOT17-02-DPM.txt cannot be read because it is either not present or invalidly formatted
+
+
+
+
+
+MotChallenge2DBox
+tracker
+multiprocessing.pool.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+                    ^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 48, in mapstar
+    return list(map(*args))
+           ^^^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\_timing.py", line 64, in wrap
+    return f(*args, **kw)
+           ^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\eval.py", line 195, in eval_sequence
+    data = dataset.get_preprocessed_seq_data(raw_data, cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\_timing.py", line 64, in wrap
+    return f(*args, **kw)
+           ^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\datasets\mot_challenge_2d_box.py", line 322, in get_preprocessed_seq_data
+    self._check_unique_ids(raw_data)
+  File "E:\tracking\MOTIP\TrackEval\trackeval\datasets\_base_dataset.py", line 315, in _check_unique_ids
+    raise TrackEvalException(exc_str)
+trackeval.utils.TrackEvalException: Tracker predicts the same ID more than once in a single timestep (seq: MOT17-02-DPM, frame: 1, ids: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19)
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "E:\tracking\MOTIP\TrackEval\trackeval\eval.py", line 81, in evaluate
+    results = pool.map(_eval_sequence, seq_list)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 367, in map
+    return self._map_async(func, iterable, mapstar, chunksize).get()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 774, in get
+    raise self._value
+trackeval.utils.TrackEvalException: Tracker predicts the same ID more than once in a single timestep (seq: MOT17-02-DPM, frame: 1, ids: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19)
+
+
+
+
+
+MotChallenge2DBox
+tracker
+multiprocessing.pool.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+                    ^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 48, in mapstar
+    return list(map(*args))
+           ^^^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\_timing.py", line 64, in wrap
+    return f(*args, **kw)
+           ^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\eval.py", line 191, in eval_sequence
+    raw_data = dataset.get_raw_seq_data(tracker, seq)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\_timing.py", line 64, in wrap
+    return f(*args, **kw)
+           ^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\datasets\_base_dataset.py", line 92, in get_raw_seq_data
+    raw_gt_data = self._load_raw_file(tracker, seq, is_gt=True)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\datasets\mot_challenge_2d_box.py", line 254, in _load_raw_file
+    raise TrackEvalException(
+trackeval.utils.TrackEvalException: GT data is not in a valid format, there is not enough rows in seq MOT17-02-DPM, timestep 0.
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "E:\tracking\MOTIP\TrackEval\trackeval\eval.py", line 81, in evaluate
+    results = pool.map(_eval_sequence, seq_list)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 367, in map
+    return self._map_async(func, iterable, mapstar, chunksize).get()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 774, in get
+    raise self._value
+trackeval.utils.TrackEvalException: GT data is not in a valid format, there is not enough rows in seq MOT17-02-DPM, timestep 0.
+
+
+
+
+
+MotChallenge2DBox
+tracker
+multiprocessing.pool.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+                    ^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 48, in mapstar
+    return list(map(*args))
+           ^^^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\_timing.py", line 64, in wrap
+    return f(*args, **kw)
+           ^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\eval.py", line 195, in eval_sequence
+    data = dataset.get_preprocessed_seq_data(raw_data, cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\_timing.py", line 64, in wrap
+    return f(*args, **kw)
+           ^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\datasets\mot_challenge_2d_box.py", line 322, in get_preprocessed_seq_data
+    self._check_unique_ids(raw_data)
+  File "E:\tracking\MOTIP\TrackEval\trackeval\datasets\_base_dataset.py", line 315, in _check_unique_ids
+    raise TrackEvalException(exc_str)
+trackeval.utils.TrackEvalException: Tracker predicts the same ID more than once in a single timestep (seq: MOT17-02-DPM, frame: 1, ids: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19)
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "E:\tracking\MOTIP\TrackEval\trackeval\eval.py", line 81, in evaluate
+    results = pool.map(_eval_sequence, seq_list)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 367, in map
+    return self._map_async(func, iterable, mapstar, chunksize).get()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 774, in get
+    raise self._value
+trackeval.utils.TrackEvalException: Tracker predicts the same ID more than once in a single timestep (seq: MOT17-02-DPM, frame: 1, ids: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19)
+
+
+
+
+
+MotChallenge2DBox
+tracker
+multiprocessing.pool.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+                    ^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 48, in mapstar
+    return list(map(*args))
+           ^^^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\_timing.py", line 64, in wrap
+    return f(*args, **kw)
+           ^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\eval.py", line 195, in eval_sequence
+    data = dataset.get_preprocessed_seq_data(raw_data, cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\_timing.py", line 64, in wrap
+    return f(*args, **kw)
+           ^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\datasets\mot_challenge_2d_box.py", line 322, in get_preprocessed_seq_data
+    self._check_unique_ids(raw_data)
+  File "E:\tracking\MOTIP\TrackEval\trackeval\datasets\_base_dataset.py", line 315, in _check_unique_ids
+    raise TrackEvalException(exc_str)
+trackeval.utils.TrackEvalException: Tracker predicts the same ID more than once in a single timestep (seq: MOT17-02-DPM, frame: 1, ids: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19)
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "E:\tracking\MOTIP\TrackEval\trackeval\eval.py", line 81, in evaluate
+    results = pool.map(_eval_sequence, seq_list)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 367, in map
+    return self._map_async(func, iterable, mapstar, chunksize).get()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 774, in get
+    raise self._value
+trackeval.utils.TrackEvalException: Tracker predicts the same ID more than once in a single timestep (seq: MOT17-02-DPM, frame: 1, ids: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19)
+
+
+
+
+
+MotChallenge2DBox
+tracker
+multiprocessing.pool.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+                    ^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 48, in mapstar
+    return list(map(*args))
+           ^^^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\_timing.py", line 64, in wrap
+    return f(*args, **kw)
+           ^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\eval.py", line 195, in eval_sequence
+    data = dataset.get_preprocessed_seq_data(raw_data, cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\_timing.py", line 64, in wrap
+    return f(*args, **kw)
+           ^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\datasets\mot_challenge_2d_box.py", line 322, in get_preprocessed_seq_data
+    self._check_unique_ids(raw_data)
+  File "E:\tracking\MOTIP\TrackEval\trackeval\datasets\_base_dataset.py", line 315, in _check_unique_ids
+    raise TrackEvalException(exc_str)
+trackeval.utils.TrackEvalException: Tracker predicts the same ID more than once in a single timestep (seq: MOT17-02-DPM, frame: 1, ids: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19)
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "E:\tracking\MOTIP\TrackEval\trackeval\eval.py", line 81, in evaluate
+    results = pool.map(_eval_sequence, seq_list)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 367, in map
+    return self._map_async(func, iterable, mapstar, chunksize).get()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 774, in get
+    raise self._value
+trackeval.utils.TrackEvalException: Tracker predicts the same ID more than once in a single timestep (seq: MOT17-02-DPM, frame: 1, ids: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19)
+
+
+
+
+
+MotChallenge2DBox
+tracker
+multiprocessing.pool.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+                    ^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 48, in mapstar
+    return list(map(*args))
+           ^^^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\_timing.py", line 64, in wrap
+    return f(*args, **kw)
+           ^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\eval.py", line 195, in eval_sequence
+    data = dataset.get_preprocessed_seq_data(raw_data, cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\_timing.py", line 64, in wrap
+    return f(*args, **kw)
+           ^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\datasets\mot_challenge_2d_box.py", line 322, in get_preprocessed_seq_data
+    self._check_unique_ids(raw_data)
+  File "E:\tracking\MOTIP\TrackEval\trackeval\datasets\_base_dataset.py", line 315, in _check_unique_ids
+    raise TrackEvalException(exc_str)
+trackeval.utils.TrackEvalException: Tracker predicts the same ID more than once in a single timestep (seq: MOT17-02-DPM, frame: 1, ids: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19)
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "E:\tracking\MOTIP\TrackEval\trackeval\eval.py", line 81, in evaluate
+    results = pool.map(_eval_sequence, seq_list)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 367, in map
+    return self._map_async(func, iterable, mapstar, chunksize).get()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 774, in get
+    raise self._value
+trackeval.utils.TrackEvalException: Tracker predicts the same ID more than once in a single timestep (seq: MOT17-02-DPM, frame: 1, ids: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19)
+
+
+
+
+
+MotChallenge2DBox
+tracker
+multiprocessing.pool.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+                    ^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 48, in mapstar
+    return list(map(*args))
+           ^^^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\_timing.py", line 64, in wrap
+    return f(*args, **kw)
+           ^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\eval.py", line 195, in eval_sequence
+    data = dataset.get_preprocessed_seq_data(raw_data, cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\_timing.py", line 64, in wrap
+    return f(*args, **kw)
+           ^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\datasets\mot_challenge_2d_box.py", line 322, in get_preprocessed_seq_data
+    self._check_unique_ids(raw_data)
+  File "E:\tracking\MOTIP\TrackEval\trackeval\datasets\_base_dataset.py", line 315, in _check_unique_ids
+    raise TrackEvalException(exc_str)
+trackeval.utils.TrackEvalException: Tracker predicts the same ID more than once in a single timestep (seq: MOT17-02-DPM, frame: 1, ids: 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19)
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "E:\tracking\MOTIP\TrackEval\trackeval\eval.py", line 81, in evaluate
+    results = pool.map(_eval_sequence, seq_list)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 367, in map
+    return self._map_async(func, iterable, mapstar, chunksize).get()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 774, in get
+    raise self._value
+trackeval.utils.TrackEvalException: Tracker predicts the same ID more than once in a single timestep (seq: MOT17-02-DPM, frame: 1, ids: 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19)
+
+
+
+
+
+MotChallenge2DBox
+tracker
+multiprocessing.pool.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+                    ^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 48, in mapstar
+    return list(map(*args))
+           ^^^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\_timing.py", line 64, in wrap
+    return f(*args, **kw)
+           ^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\eval.py", line 195, in eval_sequence
+    data = dataset.get_preprocessed_seq_data(raw_data, cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\_timing.py", line 64, in wrap
+    return f(*args, **kw)
+           ^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\datasets\mot_challenge_2d_box.py", line 430, in get_preprocessed_seq_data
+    self._check_unique_ids(data, after_preproc=True)
+  File "E:\tracking\MOTIP\TrackEval\trackeval\datasets\_base_dataset.py", line 315, in _check_unique_ids
+    raise TrackEvalException(exc_str)
+trackeval.utils.TrackEvalException: Tracker predicts the same ID more than once in a single timestep (seq: MOT17-02-DPM, frame: 1, ids: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19)
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "E:\tracking\MOTIP\TrackEval\trackeval\eval.py", line 81, in evaluate
+    results = pool.map(_eval_sequence, seq_list)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 367, in map
+    return self._map_async(func, iterable, mapstar, chunksize).get()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 774, in get
+    raise self._value
+trackeval.utils.TrackEvalException: Tracker predicts the same ID more than once in a single timestep (seq: MOT17-02-DPM, frame: 1, ids: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19)
+
+
+
+
+
+MotChallenge2DBox
+tracker
+multiprocessing.pool.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+                    ^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 48, in mapstar
+    return list(map(*args))
+           ^^^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\_timing.py", line 64, in wrap
+    return f(*args, **kw)
+           ^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\eval.py", line 197, in eval_sequence
+    seq_res[cls][met_name] = metric.eval_sequence(data)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\_timing.py", line 64, in wrap
+    return f(*args, **kw)
+           ^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\metrics\identity.py", line 67, in eval_sequence
+    fn_mat = np.zeros((num_gt_ids + num_tracker_ids, num_gt_ids + num_tracker_ids))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+numpy.core._exceptions._ArrayMemoryError: Unable to allocate 11.9 GiB for an array with shape (40027, 40027) and data type float64
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "E:\tracking\MOTIP\TrackEval\trackeval\eval.py", line 81, in evaluate
+    results = pool.map(_eval_sequence, seq_list)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 367, in map
+    return self._map_async(func, iterable, mapstar, chunksize).get()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 774, in get
+    raise self._value
+numpy.core._exceptions._ArrayMemoryError: Unable to allocate 11.9 GiB for an array with shape (40027, 40027) and data type float64
+
+
+
+
+
+MotChallenge2DBox
+tracker
+multiprocessing.pool.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+                    ^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 48, in mapstar
+    return list(map(*args))
+           ^^^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\_timing.py", line 64, in wrap
+    return f(*args, **kw)
+           ^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\eval.py", line 197, in eval_sequence
+    seq_res[cls][met_name] = metric.eval_sequence(data)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\_timing.py", line 64, in wrap
+    return f(*args, **kw)
+           ^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\metrics\identity.py", line 80, in eval_sequence
+    match_rows, match_cols = linear_sum_assignment(fn_mat + fp_mat)
+                                                   ~~~~~~~^~~~~~~~
+numpy.core._exceptions._ArrayMemoryError: Unable to allocate 11.9 GiB for an array with shape (40027, 40027) and data type float64
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "E:\tracking\MOTIP\TrackEval\trackeval\eval.py", line 81, in evaluate
+    results = pool.map(_eval_sequence, seq_list)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 367, in map
+    return self._map_async(func, iterable, mapstar, chunksize).get()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 774, in get
+    raise self._value
+numpy.core._exceptions._ArrayMemoryError: Unable to allocate 11.9 GiB for an array with shape (40027, 40027) and data type float64
+
+
+
+
+
+MotChallenge2DBox
+tracker
+multiprocessing.pool.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+                    ^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 48, in mapstar
+    return list(map(*args))
+           ^^^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\_timing.py", line 64, in wrap
+    return f(*args, **kw)
+           ^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\eval.py", line 197, in eval_sequence
+    seq_res[cls][met_name] = metric.eval_sequence(data)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\_timing.py", line 64, in wrap
+    return f(*args, **kw)
+           ^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\metrics\identity.py", line 80, in eval_sequence
+    match_rows, match_cols = linear_sum_assignment(fn_mat + fp_mat)
+                                                   ~~~~~~~^~~~~~~~
+numpy.core._exceptions._ArrayMemoryError: Unable to allocate 11.9 GiB for an array with shape (40027, 40027) and data type float64
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "E:\tracking\MOTIP\TrackEval\trackeval\eval.py", line 81, in evaluate
+    results = pool.map(_eval_sequence, seq_list)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 367, in map
+    return self._map_async(func, iterable, mapstar, chunksize).get()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 774, in get
+    raise self._value
+numpy.core._exceptions._ArrayMemoryError: Unable to allocate 11.9 GiB for an array with shape (40027, 40027) and data type float64
+
+
+
+
+
+MotChallenge2DBox
+tracker
+multiprocessing.pool.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+                    ^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 48, in mapstar
+    return list(map(*args))
+           ^^^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\_timing.py", line 64, in wrap
+    return f(*args, **kw)
+           ^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\eval.py", line 191, in eval_sequence
+    raw_data = dataset.get_raw_seq_data(tracker, seq)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\_timing.py", line 64, in wrap
+    return f(*args, **kw)
+           ^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\datasets\_base_dataset.py", line 92, in get_raw_seq_data
+    raw_gt_data = self._load_raw_file(tracker, seq, is_gt=True)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\datasets\mot_challenge_2d_box.py", line 254, in _load_raw_file
+    raise TrackEvalException(
+trackeval.utils.TrackEvalException: GT data is not in a valid format, there is not enough rows in seq MOT17-09-DPM, timestep 0.
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "E:\tracking\MOTIP\TrackEval\trackeval\eval.py", line 81, in evaluate
+    results = pool.map(_eval_sequence, seq_list)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 367, in map
+    return self._map_async(func, iterable, mapstar, chunksize).get()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 774, in get
+    raise self._value
+trackeval.utils.TrackEvalException: GT data is not in a valid format, there is not enough rows in seq MOT17-09-DPM, timestep 0.
+
+
+
+
+
+MotChallenge2DBox
+tracker
+multiprocessing.pool.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+                    ^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 48, in mapstar
+    return list(map(*args))
+           ^^^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\_timing.py", line 64, in wrap
+    return f(*args, **kw)
+           ^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\eval.py", line 197, in eval_sequence
+    seq_res[cls][met_name] = metric.eval_sequence(data)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\_timing.py", line 64, in wrap
+    return f(*args, **kw)
+           ^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\metrics\identity.py", line 80, in eval_sequence
+    match_rows, match_cols = linear_sum_assignment(fn_mat + fp_mat)
+                                                   ~~~~~~~^~~~~~~~
+numpy.core._exceptions._ArrayMemoryError: Unable to allocate 11.9 GiB for an array with shape (40027, 40027) and data type float64
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "E:\tracking\MOTIP\TrackEval\trackeval\eval.py", line 81, in evaluate
+    results = pool.map(_eval_sequence, seq_list)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 367, in map
+    return self._map_async(func, iterable, mapstar, chunksize).get()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 774, in get
+    raise self._value
+numpy.core._exceptions._ArrayMemoryError: Unable to allocate 11.9 GiB for an array with shape (40027, 40027) and data type float64
+
+
+
+
+
+MotChallenge2DBox
+tracker
+multiprocessing.pool.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+                    ^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 48, in mapstar
+    return list(map(*args))
+           ^^^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\_timing.py", line 64, in wrap
+    return f(*args, **kw)
+           ^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\eval.py", line 197, in eval_sequence
+    seq_res[cls][met_name] = metric.eval_sequence(data)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\_timing.py", line 64, in wrap
+    return f(*args, **kw)
+           ^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\metrics\identity.py", line 80, in eval_sequence
+    match_rows, match_cols = linear_sum_assignment(fn_mat + fp_mat)
+                                                   ~~~~~~~^~~~~~~~
+numpy.core._exceptions._ArrayMemoryError: Unable to allocate 11.9 GiB for an array with shape (40027, 40027) and data type float64
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "E:\tracking\MOTIP\TrackEval\trackeval\eval.py", line 81, in evaluate
+    results = pool.map(_eval_sequence, seq_list)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 367, in map
+    return self._map_async(func, iterable, mapstar, chunksize).get()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 774, in get
+    raise self._value
+numpy.core._exceptions._ArrayMemoryError: Unable to allocate 11.9 GiB for an array with shape (40027, 40027) and data type float64
+
+
+
+
+
+MotChallenge2DBox
+tracker
+multiprocessing.pool.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+                    ^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 48, in mapstar
+    return list(map(*args))
+           ^^^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\_timing.py", line 64, in wrap
+    return f(*args, **kw)
+           ^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\eval.py", line 197, in eval_sequence
+    seq_res[cls][met_name] = metric.eval_sequence(data)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\_timing.py", line 64, in wrap
+    return f(*args, **kw)
+           ^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\metrics\identity.py", line 80, in eval_sequence
+    match_rows, match_cols = linear_sum_assignment(fn_mat + fp_mat)
+                                                   ~~~~~~~^~~~~~~~
+numpy.core._exceptions._ArrayMemoryError: Unable to allocate 11.9 GiB for an array with shape (40027, 40027) and data type float64
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "E:\tracking\MOTIP\TrackEval\trackeval\eval.py", line 81, in evaluate
+    results = pool.map(_eval_sequence, seq_list)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 367, in map
+    return self._map_async(func, iterable, mapstar, chunksize).get()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 774, in get
+    raise self._value
+numpy.core._exceptions._ArrayMemoryError: Unable to allocate 11.9 GiB for an array with shape (40027, 40027) and data type float64
+
+
+
+
+
+MotChallenge2DBox
+tracker
+multiprocessing.pool.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+                    ^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 48, in mapstar
+    return list(map(*args))
+           ^^^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\_timing.py", line 64, in wrap
+    return f(*args, **kw)
+           ^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\eval.py", line 195, in eval_sequence
+    data = dataset.get_preprocessed_seq_data(raw_data, cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\_timing.py", line 64, in wrap
+    return f(*args, **kw)
+           ^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\datasets\mot_challenge_2d_box.py", line 322, in get_preprocessed_seq_data
+    self._check_unique_ids(raw_data)
+  File "E:\tracking\MOTIP\TrackEval\trackeval\datasets\_base_dataset.py", line 315, in _check_unique_ids
+    raise TrackEvalException(exc_str)
+trackeval.utils.TrackEvalException: Tracker predicts the same ID more than once in a single timestep (seq: MOT17-05-DPM, frame: 1, ids: 0 1 2 3 4)
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "E:\tracking\MOTIP\TrackEval\trackeval\eval.py", line 81, in evaluate
+    results = pool.map(_eval_sequence, seq_list)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 367, in map
+    return self._map_async(func, iterable, mapstar, chunksize).get()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 774, in get
+    raise self._value
+trackeval.utils.TrackEvalException: Tracker predicts the same ID more than once in a single timestep (seq: MOT17-05-DPM, frame: 1, ids: 0 1 2 3 4)
+
+
+
+
+
+MotChallenge2DBox
+tracker
+multiprocessing.pool.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+                    ^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 48, in mapstar
+    return list(map(*args))
+           ^^^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\_timing.py", line 64, in wrap
+    return f(*args, **kw)
+           ^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\eval.py", line 195, in eval_sequence
+    data = dataset.get_preprocessed_seq_data(raw_data, cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\_timing.py", line 64, in wrap
+    return f(*args, **kw)
+           ^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\datasets\mot_challenge_2d_box.py", line 322, in get_preprocessed_seq_data
+    self._check_unique_ids(raw_data)
+  File "E:\tracking\MOTIP\TrackEval\trackeval\datasets\_base_dataset.py", line 315, in _check_unique_ids
+    raise TrackEvalException(exc_str)
+trackeval.utils.TrackEvalException: Tracker predicts the same ID more than once in a single timestep (seq: MOT17-09-DPM, frame: 1, ids: 0 1 2 3 4 5)
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "E:\tracking\MOTIP\TrackEval\trackeval\eval.py", line 81, in evaluate
+    results = pool.map(_eval_sequence, seq_list)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 367, in map
+    return self._map_async(func, iterable, mapstar, chunksize).get()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 774, in get
+    raise self._value
+trackeval.utils.TrackEvalException: Tracker predicts the same ID more than once in a single timestep (seq: MOT17-09-DPM, frame: 1, ids: 0 1 2 3 4 5)
+
+
+
+
+
+MotChallenge2DBox
+tracker
+multiprocessing.pool.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "D:\anaconda3\envs\SORT\lib\multiprocessing\pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+  File "D:\anaconda3\envs\SORT\lib\multiprocessing\pool.py", line 48, in mapstar
+    return list(map(*args))
+  File "E:\tracking\MOTIP\TrackEval\trackeval\_timing.py", line 64, in wrap
+    return f(*args, **kw)
+  File "E:\tracking\MOTIP\TrackEval\trackeval\eval.py", line 195, in eval_sequence
+    data = dataset.get_preprocessed_seq_data(raw_data, cls)
+  File "E:\tracking\MOTIP\TrackEval\trackeval\_timing.py", line 64, in wrap
+    return f(*args, **kw)
+  File "E:\tracking\MOTIP\TrackEval\trackeval\datasets\mot_challenge_2d_box.py", line 322, in get_preprocessed_seq_data
+    self._check_unique_ids(raw_data)
+  File "E:\tracking\MOTIP\TrackEval\trackeval\datasets\_base_dataset.py", line 315, in _check_unique_ids
+    raise TrackEvalException(exc_str)
+trackeval.utils.TrackEvalException: Tracker predicts the same ID more than once in a single timestep (seq: MOT17-09-DPM, frame: 1, ids: 0 1 2 3 4 5)
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "E:\tracking\MOTIP\TrackEval\trackeval\eval.py", line 81, in evaluate
+    results = pool.map(_eval_sequence, seq_list)
+  File "D:\anaconda3\envs\SORT\lib\multiprocessing\pool.py", line 364, in map
+    return self._map_async(func, iterable, mapstar, chunksize).get()
+  File "D:\anaconda3\envs\SORT\lib\multiprocessing\pool.py", line 771, in get
+    raise self._value
+trackeval.utils.TrackEvalException: Tracker predicts the same ID more than once in a single timestep (seq: MOT17-09-DPM, frame: 1, ids: 0 1 2 3 4 5)
+
+
+
+
+
+MotChallenge2DBox
+tracker
+multiprocessing.pool.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "D:\anaconda3\envs\SORT\lib\multiprocessing\pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+  File "D:\anaconda3\envs\SORT\lib\multiprocessing\pool.py", line 48, in mapstar
+    return list(map(*args))
+  File "E:\tracking\MOTIP\TrackEval\trackeval\_timing.py", line 64, in wrap
+    return f(*args, **kw)
+  File "E:\tracking\MOTIP\TrackEval\trackeval\eval.py", line 195, in eval_sequence
+    data = dataset.get_preprocessed_seq_data(raw_data, cls)
+  File "E:\tracking\MOTIP\TrackEval\trackeval\_timing.py", line 64, in wrap
+    return f(*args, **kw)
+  File "E:\tracking\MOTIP\TrackEval\trackeval\datasets\mot_challenge_2d_box.py", line 322, in get_preprocessed_seq_data
+    self._check_unique_ids(raw_data)
+  File "E:\tracking\MOTIP\TrackEval\trackeval\datasets\_base_dataset.py", line 315, in _check_unique_ids
+    raise TrackEvalException(exc_str)
+trackeval.utils.TrackEvalException: Tracker predicts the same ID more than once in a single timestep (seq: MOT17-09-DPM, frame: 1, ids: 0 1 2 3 4 5)
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "E:\tracking\MOTIP\TrackEval\trackeval\eval.py", line 81, in evaluate
+    results = pool.map(_eval_sequence, seq_list)
+  File "D:\anaconda3\envs\SORT\lib\multiprocessing\pool.py", line 364, in map
+    return self._map_async(func, iterable, mapstar, chunksize).get()
+  File "D:\anaconda3\envs\SORT\lib\multiprocessing\pool.py", line 771, in get
+    raise self._value
+trackeval.utils.TrackEvalException: Tracker predicts the same ID more than once in a single timestep (seq: MOT17-09-DPM, frame: 1, ids: 0 1 2 3 4 5)
+
+
+
+
+
+MotChallenge2DBox
+tracker
+multiprocessing.pool.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "D:\anaconda3\envs\SORT\lib\multiprocessing\pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+  File "D:\anaconda3\envs\SORT\lib\multiprocessing\pool.py", line 48, in mapstar
+    return list(map(*args))
+  File "E:\tracking\MOTIP\TrackEval\trackeval\_timing.py", line 64, in wrap
+    return f(*args, **kw)
+  File "E:\tracking\MOTIP\TrackEval\trackeval\eval.py", line 195, in eval_sequence
+    data = dataset.get_preprocessed_seq_data(raw_data, cls)
+  File "E:\tracking\MOTIP\TrackEval\trackeval\_timing.py", line 64, in wrap
+    return f(*args, **kw)
+  File "E:\tracking\MOTIP\TrackEval\trackeval\datasets\mot_challenge_2d_box.py", line 322, in get_preprocessed_seq_data
+    self._check_unique_ids(raw_data)
+  File "E:\tracking\MOTIP\TrackEval\trackeval\datasets\_base_dataset.py", line 315, in _check_unique_ids
+    raise TrackEvalException(exc_str)
+trackeval.utils.TrackEvalException: Tracker predicts the same ID more than once in a single timestep (seq: MOT17-09-DPM, frame: 1, ids: 0 1 2 3 4 5)
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "E:\tracking\MOTIP\TrackEval\trackeval\eval.py", line 81, in evaluate
+    results = pool.map(_eval_sequence, seq_list)
+  File "D:\anaconda3\envs\SORT\lib\multiprocessing\pool.py", line 364, in map
+    return self._map_async(func, iterable, mapstar, chunksize).get()
+  File "D:\anaconda3\envs\SORT\lib\multiprocessing\pool.py", line 771, in get
+    raise self._value
+trackeval.utils.TrackEvalException: Tracker predicts the same ID more than once in a single timestep (seq: MOT17-09-DPM, frame: 1, ids: 0 1 2 3 4 5)
+
+
+
+
+
+MotChallenge2DBox
+tracker
+multiprocessing.pool.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+                    ^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 48, in mapstar
+    return list(map(*args))
+           ^^^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\_timing.py", line 64, in wrap
+    return f(*args, **kw)
+           ^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\eval.py", line 197, in eval_sequence
+    seq_res[cls][met_name] = metric.eval_sequence(data)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\_timing.py", line 64, in wrap
+    return f(*args, **kw)
+           ^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\metrics\identity.py", line 66, in eval_sequence
+    fp_mat = np.zeros((num_gt_ids + num_tracker_ids, num_gt_ids + num_tracker_ids))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+numpy.core._exceptions._ArrayMemoryError: Unable to allocate 16.6 GiB for an array with shape (47147, 47147) and data type float64
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "E:\tracking\MOTIP\TrackEval\trackeval\eval.py", line 81, in evaluate
+    results = pool.map(_eval_sequence, seq_list)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 367, in map
+    return self._map_async(func, iterable, mapstar, chunksize).get()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 774, in get
+    raise self._value
+numpy.core._exceptions._ArrayMemoryError: Unable to allocate 16.6 GiB for an array with shape (47147, 47147) and data type float64
+
+
+
+
+
+MotChallenge2DBox
+tracker
+multiprocessing.pool.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+                    ^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 48, in mapstar
+    return list(map(*args))
+           ^^^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\_timing.py", line 64, in wrap
+    return f(*args, **kw)
+           ^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\eval.py", line 197, in eval_sequence
+    seq_res[cls][met_name] = metric.eval_sequence(data)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\_timing.py", line 64, in wrap
+    return f(*args, **kw)
+           ^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\metrics\identity.py", line 80, in eval_sequence
+    match_rows, match_cols = linear_sum_assignment(fn_mat + fp_mat)
+                                                   ~~~~~~~^~~~~~~~
+numpy.core._exceptions._ArrayMemoryError: Unable to allocate 16.6 GiB for an array with shape (47147, 47147) and data type float64
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "E:\tracking\MOTIP\TrackEval\trackeval\eval.py", line 81, in evaluate
+    results = pool.map(_eval_sequence, seq_list)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 367, in map
+    return self._map_async(func, iterable, mapstar, chunksize).get()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 774, in get
+    raise self._value
+numpy.core._exceptions._ArrayMemoryError: Unable to allocate 16.6 GiB for an array with shape (47147, 47147) and data type float64
+
+
+
+
+
+MotChallenge2DBox
+tracker
+multiprocessing.pool.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+                    ^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 48, in mapstar
+    return list(map(*args))
+           ^^^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\_timing.py", line 64, in wrap
+    return f(*args, **kw)
+           ^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\eval.py", line 197, in eval_sequence
+    seq_res[cls][met_name] = metric.eval_sequence(data)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\_timing.py", line 64, in wrap
+    return f(*args, **kw)
+           ^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\metrics\identity.py", line 80, in eval_sequence
+    match_rows, match_cols = linear_sum_assignment(fn_mat + fp_mat)
+                                                   ~~~~~~~^~~~~~~~
+numpy.core._exceptions._ArrayMemoryError: Unable to allocate 16.6 GiB for an array with shape (47147, 47147) and data type float64
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "E:\tracking\MOTIP\TrackEval\trackeval\eval.py", line 81, in evaluate
+    results = pool.map(_eval_sequence, seq_list)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 367, in map
+    return self._map_async(func, iterable, mapstar, chunksize).get()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 774, in get
+    raise self._value
+numpy.core._exceptions._ArrayMemoryError: Unable to allocate 16.6 GiB for an array with shape (47147, 47147) and data type float64
+
+
+
+
+
+MotChallenge2DBox
+tracker
+multiprocessing.pool.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+                    ^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 48, in mapstar
+    return list(map(*args))
+           ^^^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\_timing.py", line 64, in wrap
+    return f(*args, **kw)
+           ^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\eval.py", line 197, in eval_sequence
+    seq_res[cls][met_name] = metric.eval_sequence(data)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\_timing.py", line 64, in wrap
+    return f(*args, **kw)
+           ^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\metrics\identity.py", line 80, in eval_sequence
+    match_rows, match_cols = linear_sum_assignment(fn_mat + fp_mat)
+                                                   ~~~~~~~^~~~~~~~
+numpy.core._exceptions._ArrayMemoryError: Unable to allocate 16.6 GiB for an array with shape (47147, 47147) and data type float64
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "E:\tracking\MOTIP\TrackEval\trackeval\eval.py", line 81, in evaluate
+    results = pool.map(_eval_sequence, seq_list)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 367, in map
+    return self._map_async(func, iterable, mapstar, chunksize).get()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 774, in get
+    raise self._value
+numpy.core._exceptions._ArrayMemoryError: Unable to allocate 16.6 GiB for an array with shape (47147, 47147) and data type float64
+
+
+
+
+
+MotChallenge2DBox
+tracker
+multiprocessing.pool.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+                    ^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 48, in mapstar
+    return list(map(*args))
+           ^^^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\_timing.py", line 64, in wrap
+    return f(*args, **kw)
+           ^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\eval.py", line 197, in eval_sequence
+    seq_res[cls][met_name] = metric.eval_sequence(data)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\_timing.py", line 64, in wrap
+    return f(*args, **kw)
+           ^^^^^^^^^^^^^^
+  File "E:\tracking\MOTIP\TrackEval\trackeval\metrics\identity.py", line 80, in eval_sequence
+    match_rows, match_cols = linear_sum_assignment(fn_mat + fp_mat)
+                                                   ~~~~~~~^~~~~~~~
+numpy.core._exceptions._ArrayMemoryError: Unable to allocate 16.6 GiB for an array with shape (47147, 47147) and data type float64
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "E:\tracking\MOTIP\TrackEval\trackeval\eval.py", line 81, in evaluate
+    results = pool.map(_eval_sequence, seq_list)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 367, in map
+    return self._map_async(func, iterable, mapstar, chunksize).get()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\envs\MOTIP\Lib\multiprocessing\pool.py", line 774, in get
+    raise self._value
+numpy.core._exceptions._ArrayMemoryError: Unable to allocate 16.6 GiB for an array with shape (47147, 47147) and data type float64
+
+
+
+
+

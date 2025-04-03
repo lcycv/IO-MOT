@@ -47,7 +47,7 @@ class SimpleCNN(nn.Module):
     def forward(self, x):
         with torch.no_grad():
             # 如果是 mot17 数据集，先调整输入图像的大小
-            if self.dataset == "mot17":
+            if self.dataset == "mot":
                 resize = T.Resize((256, 128))  # 目标大小为 256x128
                 x = resize(x)  # 调整图像大小
         

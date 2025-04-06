@@ -31,16 +31,14 @@ class FuseGFFConvBlock(nn.Module):
 class FlowGFFConvBlock(nn.Module):
     def __init__(self):
         super(FlowGFFConvBlock, self).__init__()
-        # 初始卷积层，用于从输入光流图像中提取初步特征
-        self.conv1 = nn.Conv2d(2, 64, kernel_size=7, stride=2, padding=3)  # 输出 (64, 128, 64)
-        self.conv2 = nn.Conv2d(64, 128, kernel_size=3, stride=2, padding=1)  # 输出 (128, 64, 32)
+
+        self.conv1 = nn.Conv2d(2, 64, kernel_size=7, stride=2, padding=3)
+        self.conv2 = nn.Conv2d(64, 128, kernel_size=3, stride=2, padding=1)
         self.conv3 = nn.Conv2d(128, 256, kernel_size=3, stride=2, padding=1)
-        
-        # 一个更深的卷积层
-        self.conv4 = nn.Conv2d(256, 512, kernel_size=3, stride=2, padding=1)  # 输出 (512, 16, 8)
-        # 最后使用全局平均池化
-        self.global_pool = nn.AdaptiveAvgPool2d(1)  # 输出尺寸为 (512, 1, 1)
-        # 全连接层输出 256 维特征
+        self.conv4 = nn.Conv2d(256, 512, kernel_size=3, stride=2, padding=1)
+
+        self.global_pool = nn.AdaptiveAvgPool2d(1)
+
         self.fc = FuseGFFConvBlock(512, 256)
         #self.fc =  nn.Conv2d(512, 256, kernel_size=1)
     

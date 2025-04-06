@@ -39,16 +39,9 @@ import torch.distributed
 import warnings
 warnings.filterwarnings("ignore")
 
-transform = transforms.Compose([
-     # 随机裁剪，裁剪区域比例范围为80%到100%
-    transforms.RandomAffine(
-        degrees=0,  # 不进行旋转
-        scale=(0.8, 1.2),  # 随机缩放
-        translate=(0.1, 0.1)  # 随机平移，最多10%图片宽度和高度
-    ), 
-])
+
 transform1 = transforms.Compose([
-    transforms.Resize((384, 128)),  # 将图像缩放到 32x32
+    transforms.Resize((384, 128)),
 ])
 
 transform2 = transforms.Compose([
@@ -239,7 +232,7 @@ def train_one_epoch(config: dict, model: GIP, CNN_model :SimpleCNN, Flow :FastFl
         all_images = [_.detach().to(device) for _ in batch["images"][0]]
         #all_images = [_["unnorm_image_tensor"].detach().to(device) for _ in infos[0]]
         box_dim = all_boxes[0].shape[-1]
-        # 制作allbox，allmask，裁剪完之后全部送CNN再mask
+
         # Build a mapping from ID to index, and index to ID:
         id_to_idx = {list(all_ids_set)[_]: list(range(N))[_] for _ in range(N)}
         idx_to_id = {v: k for k, v in id_to_idx.items()}
@@ -258,7 +251,7 @@ def train_one_epoch(config: dict, model: GIP, CNN_model :SimpleCNN, Flow :FastFl
             bz, h, w, c = predicted_flow.shape
             
 
-        FLOW_images[:, 0, :, :] = FLOW_images[:, 0, :, :] / w #归一化
+        FLOW_images[:, 0, :, :] = FLOW_images[:, 0, :, :] / w
         FLOW_images[:, 1, :, :] = FLOW_images[:, 1, :, :] / h
         for t in range(T):
             image = images[t]
@@ -284,7 +277,7 @@ def train_one_epoch(config: dict, model: GIP, CNN_model :SimpleCNN, Flow :FastFl
                 x, y, w, h = box * scale
                 
                 
-                # 计算裁剪框的索引
+
                 y_min = max(0, math.floor(y - h / 2))
                 y_max = min(image.shape[1], math.ceil(y + h / 2))
                 x_min = max(0, math.floor(x - w / 2))
@@ -300,37 +293,16 @@ def train_one_epoch(config: dict, model: GIP, CNN_model :SimpleCNN, Flow :FastFl
                 
                
                 
-                # 执行裁剪
+
                 image_Crop = image[:, y_min:y_max, x_min:x_max]
                 flow_Crop = Flow_image[:, y_min:y_max, x_min:x_max]
           
                 flow_Crop = transform2(flow_Crop)
                 
-                def lvy():
-                    # 定义用于逆标准化的均值和方差
-                    mean = np.array([0.485, 0.456, 0.406])  # 根据你的标准化方法调整
-                    std = np.array([0.229, 0.224, 0.225])   # 根据你的标准化方法调整
-                    
-                    # 逆标准化操作
-                    image_np = image_Crop.cpu().permute(1, 2, 0).numpy()
-                    
-                    # 逆变换：乘以标准差并加上均值
-                    image_np = image_np * std + mean
-                    # 保存图像
-                    output_folder = "saved_images"
-                    os.makedirs(output_folder, exist_ok=True)  # 如果文件夹不存在，则创建
-                    
-                    # 转换为 PIL 图像格式
-                    image_pil = Image.fromarray(np.uint8(image_np*255))
-                    
-                    # 设置保存的路径
-                    output_path = os.path.join(output_folder, str(box)+"flow_crop_image.png")
-                    
-                    # 保存图像
-                    image_pil.save(output_path)
-                # 2. 显示图像
+
+
                 # plt.imshow(image_np)
-                # plt.axis('off')  # 关闭坐标轴
+                # plt.axis('off')
                 # plt.show()
                 #mv = torch.cat((flow_Crop.flatten(), (x/image.shape[2]).unsqueeze(0),(y/image.shape[1]).unsqueeze(0)))
                 
@@ -419,19 +391,18 @@ def train_one_epoch(config: dict, model: GIP, CNN_model :SimpleCNN, Flow :FastFl
         if useloss == True:
             reid_loss = ReID(config,history).to(device)
             id_guide_matrix = reid_loss(ap_embed)
-            # 创建一个全是 2 的 tensor
             twos_tensor = torch.full((id_guide_matrix.shape[0],1,id_guide_matrix.shape[2]), 2).to(device)
             id_guide_matrix=torch.cat((id_guide_matrix,twos_tensor),dim=1)
             pred_id = pred_id_words.squeeze()
             id_guide_matrix = id_guide_matrix.permute(0, 2, 1)[~mask]
-            # 对pred_id进行切片和softmax
+
             pred_onehot = gt_id_words[:, :, :].squeeze()
             pred_id = F.softmax(pred_id, dim=1)
           
             if config['USE_LOSS2'] == True:
-               pred_id = pred_id.clone()  # 在操作之前创建一个副本，避免in-place修改
+               pred_id = pred_id.clone()
                pred_id[pred_onehot.bool()] = -pred_id[pred_onehot.bool()]
-               pred_id = -pred_id*config["ID_GUIDE_REID"] + pred_onehot*config["REID_LOSS_WEIGHT"] #这个和下面选一个
+               pred_id = -pred_id*config["ID_GUIDE_REID"] + pred_onehot*config["REID_LOSS_WEIGHT"]
             else:
               pred_id = pred_id*config["ID_GUIDE_REID"] + pred_onehot*config["REID_LOSS_WEIGHT"]
             

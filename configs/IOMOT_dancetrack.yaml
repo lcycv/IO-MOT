@@ -6,10 +6,10 @@ MODE: train  # "train" or "eval" or "submit", for the main.py script.
 NUM_CPU_PER_GPU: 4      # number of CPU per GPU
 NUM_WORKERS: 8
 DEVICE: cuda
-AVAILABLE_GPUS: 2,
+AVAILABLE_GPUS: 0,1,2,3,
 
-PERTRAIN: True
-PERTRAIN_PATH: /home1/lcy/FIP-v3/outputs/start7/checkpoint_11.pth
+PERTRAIN: False
+PERTRAIN_PATH:
 
 # Git version:
 GIT_VERSION:              # you should input the git version here, if you are using wandb to log your experiments.
@@ -84,7 +84,7 @@ RESUME_SCHEDULER: True
 RESUME_STATES: True
 
 # Inference:
-INFERENCE_MODEL: /home1/lcy/FIP-v3/outputs/start7/checkpoint_19.pth
+INFERENCE_MODEL:
 INFERENCE_ONLY_DETR: False
 INFERENCE_DATASET: DanceTrack
 INFERENCE_SPLIT: test
@@ -99,7 +99,7 @@ NEWBORN_THRESH: 0.6
 AREA_THRESH: 100
 
 # Outputs:
-OUTPUTS_DIR: ./outputs/start7
+OUTPUTS_DIR: ./outputs/dancetrack
 OUTPUTS_PER_STEP: 10
 SAVE_CHECKPOINT_PER_EPOCH: 1
 USE_TENSORBOARD: True

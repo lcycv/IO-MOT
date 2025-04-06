@@ -9,9 +9,9 @@ class Flow_enhance(nn.Module):
         super(Flow_enhance, self).__init__()
         self.conv1 = nn.Conv2d(in_channels=6, out_channels=1, kernel_size=1)  # 输出通道数调整为3
         self.conv2 = nn.Conv2d(in_channels=6, out_channels=3, kernel_size=3,padding=1)  # 输出通道数调整为3
-        self.sigmoid = nn.Sigmoid()  # 用于将注意力图映射到 [0, 1] 范围
-        self.bn2 = nn.BatchNorm2d(3)  # 对conv2的输出进行BatchNorm
-        self.relu = nn.ReLU()  # ReLU激活函数
+        self.sigmoid = nn.Sigmoid()
+        self.bn2 = nn.BatchNorm2d(3)
+        self.relu = nn.ReLU()
 
     def forward(self, image, flow_image):
         # 在通道维度拼接
@@ -20,13 +20,13 @@ class Flow_enhance(nn.Module):
         F1 = self.conv1(F) # [batch_size, 1, height, width]
         F1 = self.sigmoid(F1)
         F2 = self.conv2(F)  # [batch_size, 3, height, width]
-        F2 = self.bn2(F2)  # BatchNorm层
-        F2 = self.relu(F2)  # ReLU激活
+        F2 = self.bn2(F2)
+        F2 = self.relu(F2)
         # 逐元素相乘得到注意力图
         attention_map = F1 * F2  # [batch_size, 3, height, width]
 
         # 加权图像
-        x = attention_map  + image  # 使用注意力图来调整原始图像
+        x = attention_map  + image
 
         return x
 def centralize(img1, img2):

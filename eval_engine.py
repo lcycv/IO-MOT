@@ -26,12 +26,12 @@ warnings.filterwarnings("ignore")
 
 transform1 = transforms.Compose([
       transforms.Resize((256, 128)),
-    #  transforms.CenterCrop(32),#, interpolation=Image.NEAREST),  # 使用较小内存消耗的插值方法
+    #  transforms.CenterCrop(32),#, interpolation=Image.NEAREST),
 ])
 transform = transforms.Compose([
-    # # 随机裁剪，裁剪区域比例范围为80%到100%
+
     # transforms.RandomResizedCrop(32, scale=(0.8, 1.0), ratio=(0.75, 1.33)),
-    # 缩放到32x32
+
     transforms.Resize((384, 128)),
      
 ])
@@ -210,7 +210,7 @@ def submit_one_seq(
         b[:,2:]=b[:,2:]+b[:,:2]
 
 
-        # indices = util.non_max_suppression(  # 非极大值抑制
+        # indices = util.non_max_suppression(
         #     b, nms_max_overlap, np.array(prob.flatten()))
         # boxes = boxes[indices].to(device)
         # prob = prob[indices].to(device)
@@ -253,9 +253,9 @@ def submit_one_seq(
 
             image_np = image_Crop.cpu().permute(1, 2, 0).numpy()
 
-            # 2. 显示图像
+
             # plt.imshow(image_np)
-            # plt.axis('off')  # 关闭坐标轴
+            # plt.axis('off')
             # plt.show()
             
             
@@ -301,7 +301,7 @@ def submit_one_seq(
        
         box_results = boxes.float().to(device)
         box_results[:,2:] += box_results[:,:2]
-        # 限制 x1, y1, x2, y2 的范围
+
         box_results = torch.stack([
             torch.clamp(box_results[:, 0], min=0, max=ori_w),  # x1 限制在 [0, ori_w] 之间
             torch.clamp(box_results[:, 1], min=0, max=ori_h),  # y1 限制在 [0, ori_h] 之间

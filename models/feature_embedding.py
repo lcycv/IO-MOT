@@ -46,11 +46,6 @@ class SimpleCNN(nn.Module):
 
     def forward(self, x):
         with torch.no_grad():
-
-            if self.dataset == "mot":
-                resize = T.Resize((256, 128))
-                x = resize(x)
-        
             self.model.eval()
             x = self.model(x).float()
             x = nn.functional.normalize(x, dim=-1)
@@ -58,9 +53,6 @@ class SimpleCNN(nn.Module):
 
 
        
-
-    
-
 
     def _get_general_model(self):
         """Used for the half-val for MOT17/20.

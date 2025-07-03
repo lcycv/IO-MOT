@@ -37,7 +37,7 @@ def make_parser():
 
     parser.add_argument("--data_path", default="", help="path to MOT data")
     parser.add_argument("--save_path", default="fast_reid/datasets", help="Path to save the MOT-ReID dataset")
-    parser.add_argument("--dataset", default='dancetrack', help="MOTChallenge dataset number e.g. 17, 20")
+    parser.add_argument("--dataset", default='MOT17', help="MOTChallenge dataset number e.g. 17, 20")
 
     return parser
 
@@ -49,7 +49,7 @@ def main(args):
 
     save_path = os.path.join(args.save_path,  str(args.dataset) + '-ReID')
     train_save_path = os.path.join(save_path, 'bounding_box_train')
-    os.makedirs(train_save_path, exist_ok=True) 
+    os.makedirs(train_save_path, exist_ok=True)
     test_save_path = os.path.join(save_path, 'bounding_box_test')
     os.makedirs(test_save_path, exist_ok=True)
 
@@ -70,7 +70,7 @@ def main(args):
         print(id_offset)
 
         ground_truth_path = os.path.join(data_path, seq, 'gt/gt.txt')
-        gt = generate_trajectories(ground_truth_path, groundTrues=True)  # f, id, x_tl, y_tl, x_br, y_br, ...
+        gt = generate_trajectories(ground_truth_path, groundTrues=False)  # f, id, x_tl, y_tl, x_br, y_br, ...
 
         images_path = os.path.join(data_path, seq, 'img1')
         img_files = os.listdir(images_path)

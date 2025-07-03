@@ -14,6 +14,8 @@ It must returns an instance of :class:`Backbone`.
 
 # Person re-id datasets
 from .dancetrack import dancetrack
+from .bft import BFT
+from .mot17 import MOT17
 from .mot17 import MOT17
 from .mot20 import MOT20
 from .cuhk03 import CUHK03

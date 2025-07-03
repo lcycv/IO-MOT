@@ -1,6 +1,6 @@
 import einops
 import math
-from data import build_dataset,build_sampler,build_dataloader
+from data import build_dataset, build_sampler, build_dataloader
 from GIP import build
 import torch
 import torch.nn.functional as F
@@ -18,11 +18,11 @@ from PIL import Image
 import cv2
 from torchvision import transforms
 import numpy as np
-from models.utils import save_checkpoint,get_model
+from models.utils import save_checkpoint, get_model
 import os
 from eval_engine import evaluate_one_epoch
 from models.ReID import ReID
-from models.Flow import get_flow,Flow_enhance
+from models.Flow import get_flow, Flow_enhance
 from torch.utils.tensorboard import SummaryWriter
 from FastFlowNet.models.FastFlowNet import FastFlowNet
 from FastFlowNet.flow_vis import flow_to_color
@@ -33,28 +33,21 @@ from utils.utils import labels_to_one_hot, is_distributed, distributed_rank, \
     combine_detr_outputs, detr_outputs_index_select, infos_to_detr_targets, batch_iterator, is_main_process
 import torch.distributed
 
-#os.environ['PYTORCH_CUDA_ALLOC_CONF'] = 'max_split_size_mb:256'
-#os.environ['PYTORCH_CUDA_ALLOC_CONF']='expandable_segments:True'
+# os.environ['PYTORCH_CUDA_ALLOC_CONF'] = 'max_split_size_mb:256'
+# os.environ['PYTORCH_CUDA_ALLOC_CONF']='expandable_segments:True'
 
 import warnings
+
 warnings.filterwarnings("ignore")
 
-
-transform1 = transforms.Compose([
-    transforms.Resize((384, 128)),
-])
-
-transform2 = transforms.Compose([
-transforms.Resize((256, 128)),  
-#transforms.CenterCrop(32), 
-])
 
 class TPS:
     """
     Time Per Step.
     """
+
     def __init__(self, windows_size: int = 50):
-        self.tps_deque = deque(maxlen=windows_size)     # time per step.
+        self.tps_deque = deque(maxlen=windows_size)  # time per step.
 
     def update(self, tps: float):
         self.tps_deque.append(tps)
@@ -79,12 +72,11 @@ class TPS:
         h, m = divmod(m, 60)
         return f"{int(h)}:{int(m)}:{int(s)}"
 
-def train(config: dict):
 
+def train(config: dict):
     dataset_train = build_dataset(config=config)
     model = build(config=config)
     model.to(device=torch.device(config["DEVICE"]))
-    
 
     # For optimizer:
     param_groups = get_param_groups(model=model, config=config)
@@ -105,54 +97,54 @@ def train(config: dict):
         "start_epoch": 0,
         "global_iter": 0
     }
-    
+
     if config['PERTRAIN']:
         if not config.get('PERTRAIN_PATH'):
-            raise ValueError("The 'PERTRAIN_PATH' in the config is empty or not set. Please provide a valid checkpoint path.")
-        load_checkpoint(model,config['PERTRAIN_PATH'],train_states,optimizer,scheduler)
+            raise ValueError(
+                "The 'PERTRAIN_PATH' in the config is empty or not set. Please provide a valid checkpoint path.")
+        load_checkpoint(model, config['PERTRAIN_PATH'], train_states, optimizer, scheduler)
     CNN = model.CNN
     CNN.to(device=torch.device(config["DEVICE"]))
     FLOW = FastFlowNet().eval()
     FLOW.to(device=torch.device(config["DEVICE"]))
-    #enhance = model.enhance
-    #enhance.to(device=torch.device(config["DEVICE"]))
-    FLOW.load_state_dict(torch.load('./FastFlowNet/checkpoints/fastflownet_ft_mix.pth',map_location='cuda:{}'.format(distributed_rank())))
+    # enhance = model.enhance
+    # enhance.to(device=torch.device(config["DEVICE"]))
+    FLOW.load_state_dict(torch.load('./FastFlowNet/checkpoints/fastflownet_ft_mix.pth',
+                                    map_location='cuda:{}'.format(distributed_rank())))
     p_embedding = model.p_embedding.to(device=torch.device(config["DEVICE"]))
     # For resume:
     if train_states["start_epoch"] > 0:
         for i in range(0, train_states["start_epoch"]):
             scheduler.step()
 
-  # Distributed, every gpu will share the same parameters.
+    # Distributed, every gpu will share the same parameters.
     if is_distributed():
         model = DDP(model, device_ids=[distributed_rank()])
-  
-        
+
     for epoch in range(train_states["start_epoch"], config["EPOCHS"]):
 
         epoch_start_timestamp = TPS.timestamp()
         dataset_train.set_epoch(epoch)
         sampler_train = build_sampler(dataset=dataset_train, shuffle=True)
         dataloader_train = build_dataloader(
-           dataset=dataset_train,
-           sampler=sampler_train,
-           batch_size=config["BATCH_SIZE"],
-           num_workers=config["NUM_WORKERS"]
-       )
+            dataset=dataset_train,
+            sampler=sampler_train,
+            batch_size=config["BATCH_SIZE"],
+            num_workers=config["NUM_WORKERS"]
+        )
         if is_distributed():
             sampler_train.set_epoch(epoch)
-        
-        
-        #Train one epoch:
+
+        # Train one epoch:
         train_one_epoch(
-        config=config, model=model,CNN_model=CNN,Flow = FLOW, #enhance = enhance,
-        p_embedding=p_embedding,
-        dataloader=dataloader_train, id_criterion=id_criterion,
-        optimizer=optimizer, epoch=epoch, states=train_states,
-        clip_max_norm=config["CLIP_MAX_NORM"], detr_num_train_frames=config["DETR_NUM_TRAIN_FRAMES"],
-        detr_checkpoint_frames=config["DETR_CHECKPOINT_FRAMES"],
-        lr_warmup_epochs=0 if "LR_WARMUP_EPOCHS" not in config else config["LR_WARMUP_EPOCHS"]
-         )
+            config=config, model=model, CNN_model=CNN, Flow=FLOW,  # enhance = enhance,
+            p_embedding=p_embedding,
+            dataloader=dataloader_train, id_criterion=id_criterion,
+            optimizer=optimizer, epoch=epoch, states=train_states,
+            clip_max_norm=config["CLIP_MAX_NORM"], detr_num_train_frames=config["DETR_NUM_TRAIN_FRAMES"],
+            detr_checkpoint_frames=config["DETR_CHECKPOINT_FRAMES"],
+            lr_warmup_epochs=0 if "LR_WARMUP_EPOCHS" not in config else config["LR_WARMUP_EPOCHS"]
+        )
 
         lr = optimizer.state_dict()["param_groups"][-1]["lr"]
 
@@ -163,39 +155,57 @@ def train(config: dict):
         if (epoch + 1) % config["SAVE_CHECKPOINT_PER_EPOCH"] == 0:
             os.makedirs(os.path.dirname(config["OUTPUTS_DIR"]), exist_ok=True)
             save_checkpoint(model=model,
-                           path=os.path.join(config["OUTPUTS_DIR"], f"checkpoint_{epoch}.pth"),
-                           states=train_states,
-                           optimizer=optimizer,
-                           scheduler=scheduler,
-                           )
-            if config["INFERENCE_DATASET"] is not None :
+                            path=os.path.join(config["OUTPUTS_DIR"], f"checkpoint_{epoch}.pth"),
+                            states=train_states,
+                            optimizer=optimizer,
+                            scheduler=scheduler,
+                            )
+            if config["INFERENCE_DATASET"] is not None:
                 continue
                 evaluate_one_epoch(
-            config=config,
-            model=model,
-            CNN=CNN,
-            Flow=FLOW, p_embedding=p_embedding,
-            dataset=config["INFERENCE_DATASET"],
-            data_split=config["INFERENCE_SPLIT"],
-            outputs_dir=eval_outputs_dir,
-            # dataloader=dataloader_train,
-        )
-
-
-
+                    config=config,
+                    model=model,
+                    CNN=CNN,
+                    Flow=FLOW, p_embedding=p_embedding,
+                    dataset=config["INFERENCE_DATASET"],
+                    data_split=config["INFERENCE_SPLIT"],
+                    outputs_dir=eval_outputs_dir,
+                    # dataloader=dataloader_train,
+                )
 
         # Next step.
         scheduler.step()
 
 
-def train_one_epoch(config: dict, model: GIP, CNN_model :SimpleCNN, Flow :FastFlowNet,p_embedding:nn.Module, #enhance : Flow_enhance,
+def train_one_epoch(config: dict, model: GIP, CNN_model: SimpleCNN, Flow: FastFlowNet, p_embedding: nn.Module,
+                    # enhance : Flow_enhance,
                     dataloader: DataLoader, id_criterion: nn.Module,
                     optimizer: torch.optim,
                     epoch: int, states: dict, clip_max_norm: float, detr_num_train_frames: int,
                     detr_checkpoint_frames: int = 0, lr_warmup_epochs: int = 0):
+    if config['DATASETS'] == ['BFT']:
+        transform1 = transforms.Compose([
+            transforms.Resize((128, 384)),
+        ])
+
+        transform2 = transforms.Compose([
+            transforms.Resize((128, 256)),
+            # transforms.CenterCrop(32),
+        ])
+        print("Epoch Reshape 128x384 --for bird")
+    else:
+        transform1 = transforms.Compose([
+            transforms.Resize((384, 128)),
+        ])
+
+        transform2 = transforms.Compose([
+            transforms.Resize((256, 128)),
+            # transforms.CenterCrop(32),
+        ])
+        print("Epoch Reshape 384x128 --for human")
     model.train()
     writer = SummaryWriter(log_dir=os.path.join(config["OUTPUTS_DIR"], f"result"))
-    tps = TPS() # save time per step
+    tps = TPS()  # save time per step
     CNN = CNN_model.eval()
     device = torch.device(config["DEVICE"])
     p_embedding = p_embedding
@@ -211,15 +221,14 @@ def train_one_epoch(config: dict, model: GIP, CNN_model :SimpleCNN, Flow :FastFl
             lr_warmup(optimizer=optimizer, epoch=epoch, iteration=i,
                       orig_lr=config["LR"], warmup_epochs=lr_warmup_epochs, iter_per_epoch=len(dataloader))
 
-
-      # prepare some meta info
+        # prepare some meta info
         num_gts = sum([len(info["boxes"]) for info in batch["infos"][0]])
 
         B, T = len(batch["images"]), len(batch["images"][0])
         detr_num_train_frames = min(detr_num_train_frames, T)
         frames = batch["nested_tensors"]  # (B, T, C, H, W) for tensors
         infos = batch["infos"]
-        assert B==1, "f:for simple B==1"
+        assert B == 1, "f:for simple B==1"
         random_frame_idxs = torch.randperm(T)
         detr_train_frame_idxs = random_frame_idxs[:detr_num_train_frames]
         detr_no_grad_frame_idxs = random_frame_idxs[detr_num_train_frames:]
@@ -230,7 +239,7 @@ def train_one_epoch(config: dict, model: GIP, CNN_model :SimpleCNN, Flow :FastFl
         N = len(all_ids_set)
         all_boxes = [_["boxes"].detach().to(device) for _ in infos[0]]
         all_images = [_.detach().to(device) for _ in batch["images"][0]]
-        #all_images = [_["unnorm_image_tensor"].detach().to(device) for _ in infos[0]]
+        # all_images = [_["unnorm_image_tensor"].detach().to(device) for _ in infos[0]]
         box_dim = all_boxes[0].shape[-1]
 
         # Build a mapping from ID to index, and index to ID:
@@ -242,22 +251,21 @@ def train_one_epoch(config: dict, model: GIP, CNN_model :SimpleCNN, Flow :FastFl
         all_box = []
         images = torch.stack(all_images)
         images_first = images[:-1]
-        images_first = torch.cat((images[:1],images_first),dim=0)
-        images_second= images
+        images_first = torch.cat((images[:1], images_first), dim=0)
+        images_second = images
         with torch.no_grad():
-            FLOW_images = get_flow(images_first,images_second,Flow.eval()).detach()
+            FLOW_images = get_flow(images_first, images_second, Flow.eval()).detach()
 
             predicted_flow = -FLOW_images.permute(0, 2, 3, 1)
             bz, h, w, c = predicted_flow.shape
-            
 
         FLOW_images[:, 0, :, :] = FLOW_images[:, 0, :, :] / w
         FLOW_images[:, 1, :, :] = FLOW_images[:, 1, :, :] / h
         for t in range(T):
             image = images[t]
-            #if t == 0:
+            # if t == 0:
             #    image = torch.cat((image,image),dim=0)
-            #else:
+            # else:
             #    image = torch.cat((images[t-1],image),dim=0)
             Flow_image = FLOW_images[t]
             height, width = image.shape[-2:]
@@ -272,40 +280,52 @@ def train_one_epoch(config: dict, model: GIP, CNN_model :SimpleCNN, Flow :FastFl
             boxes = all_boxes[t]
             crop_frame = []
             flow_frame = []
-      
             for box in boxes:
                 x, y, w, h = box * scale
-                
-                
+
+                # y_min = max(0, math.floor(y - h / 2))
+                # y_max = min(image.shape[1], math.ceil(y + h / 2))
+                # x_min = max(0, math.floor(x - w / 2))
+                # x_max = min(image.shape[2], math.ceil(x + w / 2))
+                # if y_min >= image.shape[1]:
+                #    y_min = y_max - 10
+                # if y_max <= 0:
+                #    y_max = y_min + 10
+                # if x_min >= image.shape[2]:
+                #    x_min = x_max - 10
+                # if x_max <= 0:
+                #    x_max = x_min + 10
+
 
                 y_min = max(0, math.floor(y - h / 2))
                 y_max = min(image.shape[1], math.ceil(y + h / 2))
                 x_min = max(0, math.floor(x - w / 2))
                 x_max = min(image.shape[2], math.ceil(x + w / 2))
-                if y_min >= image.shape[1]:
-                    y_min = y_max - 10
-                if y_max <= 0:
-                    y_max = y_min + 10
-                if x_min >= image.shape[2]:
-                    x_min = x_max - 10
-                if x_max <= 0:
-                    x_max = x_min + 10
-                
-               
-                
+
+
+                if y_max <= y_min:
+                    y_max = min(y_min + 1, image.shape[1])
+                    if y_max <= y_min:
+                        y_min = 0
+                        y_max = 1
+
+
+                if x_max <= x_min:
+                    x_max = min(x_min + 1, image.shape[2])
+                    if x_max <= x_min:
+                        x_min = 0
+                        x_max = 1
 
                 image_Crop = image[:, y_min:y_max, x_min:x_max]
                 flow_Crop = Flow_image[:, y_min:y_max, x_min:x_max]
-          
-                flow_Crop = transform2(flow_Crop)
-                
 
+                flow_Crop = transform2(flow_Crop)
 
                 # plt.imshow(image_np)
                 # plt.axis('off')
                 # plt.show()
-                #mv = torch.cat((flow_Crop.flatten(), (x/image.shape[2]).unsqueeze(0),(y/image.shape[1]).unsqueeze(0)))
-                
+                # mv = torch.cat((flow_Crop.flatten(), (x/image.shape[2]).unsqueeze(0),(y/image.shape[1]).unsqueeze(0)))
+
                 mv = flow_Crop
                 flow_frame.append(mv)
                 image_Resize = transform1(image_Crop)
@@ -324,32 +344,37 @@ def train_one_epoch(config: dict, model: GIP, CNN_model :SimpleCNN, Flow :FastFl
             all_crop.append(t_crop)
             all_flow.append(t_flow)
             all_box.append(t_box)
-        
-            
-        all_flow = torch.stack(all_flow, dim=0).view(-1, 2, 256, 128)
-        all_box = torch.stack(all_box, dim=0)
-        all_mask = torch.stack(all_mask, dim=0)
-        all_crop = torch.stack(all_crop, dim=0).view(-1, 3, 384, 128)
-       
+
+        if config['DATASETS'] == ['BFT']:
+            all_flow = torch.stack(all_flow, dim=0).view(-1, 2, 128, 256)
+            all_box = torch.stack(all_box, dim=0)
+            all_mask = torch.stack(all_mask, dim=0)
+            all_crop = torch.stack(all_crop, dim=0).view(-1, 3, 128, 384)
+
+        else:
+            all_flow = torch.stack(all_flow, dim=0).view(-1, 2, 256, 128)
+            all_box = torch.stack(all_box, dim=0)
+            all_mask = torch.stack(all_mask, dim=0)
+            all_crop = torch.stack(all_crop, dim=0).view(-1, 3, 384, 128)
+
         output1 = all_crop
-        #output1, output2 = torch.split(all_crop, 3, dim=1)
+        # output1, output2 = torch.split(all_crop, 3, dim=1)
         with torch.no_grad():
             output1 = CNN(output1).detach()
         #    output2 = CNN(output2)
         # output = torch.cat((output, all_flow), dim=-1)
-        
-        #all_flow = all_flow.view(output2.shape[0],-1)
-        #all_flow = all_flow.unsqueeze(2).unsqueeze(3)
-        
+
+        # all_flow = all_flow.view(output2.shape[0],-1)
+        # all_flow = all_flow.unsqueeze(2).unsqueeze(3)
+
         output1 = output1.unsqueeze(2).unsqueeze(3)
-        #output2 = output2.unsqueeze(2).unsqueeze(3)
-          
-        output = get_model(model).GFFfuse(output1,all_flow).view(T,N,-1)
+        # output2 = output2.unsqueeze(2).unsqueeze(3)
+
+        output = get_model(model).GFFfuse(output1, all_flow).view(T, N, -1)
         position_embedding = p_embedding(all_box)
-        #print(position_embedding.shape)
+        # print(position_embedding.shape)
         output = output + position_embedding
-        
-        
+
         CNN_output1 = []
         for t in range(T):
             CNN_output1.append(output[t][~all_mask[t]])
@@ -359,22 +384,14 @@ def train_one_epoch(config: dict, model: GIP, CNN_model :SimpleCNN, Flow :FastFl
                     CNN_output1.append(output[t][~all_mask[t]])
             if t in detr_train_frame_idxs:
                 CNN_output1.append(output[t][~all_mask[t]])
-        
-        
-        
-
-        CNN_outputs={"pred_boxes":all_boxes,"feature":CNN_output1}
-
+        CNN_outputs = {"pred_boxes": all_boxes, "feature": CNN_output1}
         match_instances = generate_match_instances(
-                     infos=infos, CNN_outputs=CNN_outputs
-                )
-
-        
-
+            infos=infos, CNN_outputs=CNN_outputs
+        )
 
         assert len(match_instances) == 1, f"For simplicity, only the case of bs=1 is implemented."
         get_model(model).add_random_id_words_to_instances(instances=match_instances[0])
-        pred_id_words, gt_id_words, id_gts, ap_feature, mask, history= get_model(model).forward_train(
+        pred_id_words, gt_id_words, id_gts, ap_feature, mask, history = get_model(model).forward_train(
             track_history=match_instances,
             traj_drop_ratio=config["TRAJ_DROP_RATIO"],
             traj_switch_ratio=config["TRAJ_SWITCH_RATIO"] if "TRAJ_SWITCH_RATIO" in config else 0.0,
@@ -387,42 +404,41 @@ def train_one_epoch(config: dict, model: GIP, CNN_model :SimpleCNN, Flow :FastFl
         # ReID_loss = ReID_losses(ap_embed, id_gts, mask, history,new_id)
         useloss = config['USE_REID']
         ap_embed = ap_feature
-        
+
         if useloss == True:
-            reid_loss = ReID(config,history).to(device)
+            reid_loss = ReID(config, history).to(device)
             id_guide_matrix = reid_loss(ap_embed)
-            twos_tensor = torch.full((id_guide_matrix.shape[0],1,id_guide_matrix.shape[2]), 2).to(device)
-            id_guide_matrix=torch.cat((id_guide_matrix,twos_tensor),dim=1)
+            twos_tensor = torch.full((id_guide_matrix.shape[0], 1, id_guide_matrix.shape[2]), 2).to(device)
+            id_guide_matrix = torch.cat((id_guide_matrix, twos_tensor), dim=1)
             pred_id = pred_id_words.squeeze()
             id_guide_matrix = id_guide_matrix.permute(0, 2, 1)[~mask]
 
             pred_onehot = gt_id_words[:, :, :].squeeze()
             pred_id = F.softmax(pred_id, dim=1)
-          
+
             if config['USE_LOSS2'] == True:
-               pred_id = pred_id.clone()
-               pred_id[pred_onehot.bool()] = -pred_id[pred_onehot.bool()]
-               pred_id = -pred_id*config["ID_GUIDE_REID"] + pred_onehot*config["REID_LOSS_WEIGHT"]
+                pred_id = pred_id.clone()
+                pred_id[pred_onehot.bool()] = -pred_id[pred_onehot.bool()]
+                pred_id = -pred_id * config["ID_GUIDE_REID"] + pred_onehot * config["REID_LOSS_WEIGHT"]
             else:
-              pred_id = pred_id*config["ID_GUIDE_REID"] + pred_onehot*config["REID_LOSS_WEIGHT"]
-            
+                pred_id = pred_id * config["ID_GUIDE_REID"] + pred_onehot * config["REID_LOSS_WEIGHT"]
+
             pred_loss = torch.sum(pred_id * id_guide_matrix, dim=1, keepdim=True).mean()
-            loss = id_loss * id_criterion.weight   + pred_loss
-            
+            loss = id_loss * id_criterion.weight + pred_loss
+
             writer.add_scalar("id_loss", id_loss.detach(), states["global_iter"])
             writer.add_scalar("id_guide_reid", pred_loss.detach(), states["global_iter"])
             writer.add_scalar("loss", loss.detach(), i)
 
-    
-            
+
+
         else:
             loss = id_loss * id_criterion.weight
-          
+
             writer.add_scalar("id_loss", id_loss.detach(), states["global_iter"])
             writer.add_scalar("loss", loss.detach(), states["global_iter"])
-            
-        losses.append(id_loss.item())
 
+        losses.append(id_loss.item())
 
         # Backward the loss:
         loss /= config["ACCUMULATE_STEPS"]
@@ -437,24 +453,26 @@ def train_one_epoch(config: dict, model: GIP, CNN_model :SimpleCNN, Flow :FastFl
         tps.update(iter_end_timestamp - iter_start_timestamp)
         eta = tps.eta(total_steps=len(dataloader), current_steps=i)
 
-        
         if useloss == True:
-            print(f"\r[Epoch: {epoch}] [{i}/{len(dataloader)}] [tps: {tps.average:.2f}s] [eta: {TPS.format(eta)}] [loss: {loss:.4f}] [id_loss: {id_loss:.4f}] [ID_Guide_ReID: {pred_loss:.4f}]", end="")
+            print(
+                f"\r[Epoch: {epoch}] [{i}/{len(dataloader)}] [tps: {tps.average:.2f}s] [eta: {TPS.format(eta)}] [loss: {loss:.4f}] [id_loss: {id_loss:.4f}] [ID_Guide_ReID: {pred_loss:.4f}]",
+                end="")
         else:
-            print(f"\r[Epoch: {epoch}] [{i}/{len(dataloader)}] [tps: {tps.average:.2f}s] [eta: {TPS.format(eta)}] [loss: {loss:.4f}]", end="")
-        
-        
+            print(
+                f"\r[Epoch: {epoch}] [{i}/{len(dataloader)}] [tps: {tps.average:.2f}s] [eta: {TPS.format(eta)}] [loss: {loss:.4f}]",
+                end="")
+
         iter_start_timestamp = TPS.timestamp()
         states["global_iter"] += 1
-        
+
     avg_loss = sum(losses) / len(losses)
     print()
-    print("avg_id_loss:" , avg_loss)
+    print("avg_id_loss:", avg_loss)
     writer.close()
     states["start_epoch"] += 1
 
 
-def generate_match_instances( infos, CNN_outputs):
+def generate_match_instances(infos, CNN_outputs):
     match_instances = []
     B, T = len(infos), len(infos[0])
     for b in range(B):
@@ -463,12 +481,13 @@ def generate_match_instances( infos, CNN_outputs):
             flat_idx = b * T + t
             instances = Instances(image_size=(0, 0))
             instances.ids = infos[b][t]["ids"]
+
             instances.gt_boxes = infos[b][t]["boxes"]
+
             instances.pred_boxes = CNN_outputs["pred_boxes"][flat_idx]
             instances.outputs = CNN_outputs["feature"][flat_idx]
             match_instances[b].append(instances)
     return match_instances
-
 
 
 def get_param_groups(model: nn.Module, config) -> list[dict]:
@@ -477,6 +496,7 @@ def get_param_groups(model: nn.Module, config) -> list[dict]:
             if key in name:
                 return True
         return False
+
     # keywords
     backbone_names = config["LR_BACKBONE_NAMES"]
     linear_proj_names = config["LR_LINEAR_PROJ_NAMES"]
@@ -508,6 +528,7 @@ def get_param_groups(model: nn.Module, config) -> list[dict]:
     ]
     return param_groups
 
+
 def lr_warmup(optimizer, epoch: int, iteration: int, orig_lr: float, warmup_epochs: int, iter_per_epoch: int):
     # min_lr = 1e-8
     total_warmup_iters = warmup_epochs * iter_per_epoch
@@ -520,4 +541,3 @@ def lr_warmup(optimizer, epoch: int, iteration: int, orig_lr: float, warmup_epoc
             param_grop["lr"] = current_lr
         pass
     return
-

@@ -32,9 +32,9 @@ MODEL:
       SCALE: 1.
 
 INPUT:
-  SIZE_TRAIN: [ 256, 128 ]
-  SIZE_TEST: [ 256, 128 ]
-
+  SIZE_TRAIN: [ 384, 384 ] # [64,64], 1. 输入时，和原图对比（384，384） VS （64，64）  2. 384的在测试集上测试，64的也测。
+  SIZE_TEST: [ 384, 384 ]
+ 
   REA:
     ENABLED: True
     PROB: 0.5

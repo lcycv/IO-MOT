@@ -1,6 +1,6 @@
 import torch.nn as nn
 import torch
-import os,cv2
+import os, cv2
 from data.seq_dataset import SeqDataset
 from torch.utils.data import DataLoader
 from structures.ordered_set import OrderedSet
@@ -25,17 +25,16 @@ import util
 warnings.filterwarnings("ignore")
 
 transform1 = transforms.Compose([
-      transforms.Resize((256, 128)),
-    #  transforms.CenterCrop(32),#, interpolation=Image.NEAREST),
+    transforms.Resize((256, 128)),
+    #  transforms.CenterCrop(32),#, interpolation=Image.NEAREST),  # 使用较小内存消耗的插值方法
 ])
 transform = transforms.Compose([
 
-    # transforms.RandomResizedCrop(32, scale=(0.8, 1.0), ratio=(0.75, 1.33)),
-
     transforms.Resize((384, 128)),
-     
+
 ])
-from models.utils import load_checkpoint,get_model
+from models.utils import load_checkpoint, get_model
+
 
 @torch.no_grad()
 def eval(config):
@@ -46,7 +45,7 @@ def eval(config):
     CNN.to(device=torch.device(config["DEVICE"]))
     FLOW = FastFlowNet().eval()
     FLOW.to(device=torch.device(config["DEVICE"]))
-    
+
     p_embedding = model.p_embedding.to(device=torch.device(config["DEVICE"]))
     FLOW.load_state_dict(torch.load('./FastFlowNet/checkpoints/fastflownet_ft_mix.pth'))
 
@@ -71,9 +70,29 @@ def eval(config):
 
 
 @torch.no_grad()
-def evaluate_one_epoch(config: dict, model: nn.Module, CNN: nn.Module,Flow :FastFlowNet, p_embedding:nn.Module,
-                        dataset: str, data_split: str,
+def evaluate_one_epoch(config: dict, model: nn.Module, CNN: nn.Module, Flow: FastFlowNet, p_embedding: nn.Module,
+                       dataset: str, data_split: str,
                        outputs_dir: str):
+    if config['DATASETS'] == ['BFT']:
+        transform1 = transforms.Compose([
+            transforms.Resize((128, 384)),
+        ])
+
+        transform2 = transforms.Compose([
+            transforms.Resize((128, 256)),
+            # transforms.CenterCrop(32),
+        ])
+        print("Epoch Reshape 128x384 --for bird")
+    else:
+        transform1 = transforms.Compose([
+            transforms.Resize((384, 128)),
+        ])
+
+        transform2 = transforms.Compose([
+            transforms.Resize((256, 128)),
+            # transforms.CenterCrop(32),
+        ])
+        print("Epoch Reshape 384x128 --for human")
     model.eval()
     CNN.eval()
     Flow.eval()
@@ -84,11 +103,12 @@ def evaluate_one_epoch(config: dict, model: nn.Module, CNN: nn.Module,Flow :Fast
     seq_names = [all_seq_names[_] for _ in range(len(all_seq_names))]
     flow_size = config['FLOW_SIZE']
     if len(seq_names) > 0:
-        for i,seq in enumerate(seq_names):
+        fps = []
+        for i, seq in enumerate(seq_names):
             st = time.time()
-            submit_one_seq(
-                model=model,  CNN=CNN,dataset=dataset, Flow=Flow, p_embedding=p_embedding,
-                flow_size = flow_size,
+            tim = submit_one_seq(
+                model=model, CNN=CNN, dataset=dataset, Flow=Flow, p_embedding=p_embedding,
+                flow_size=flow_size,
                 seq_dir=os.path.join(config["DATA_ROOT"], dataset, data_split, seq),
                 max_temporal_length=config["MAX_TEMPORAL_LENGTH"],
                 outputs_dir=outputs_dir,
@@ -99,14 +119,15 @@ def evaluate_one_epoch(config: dict, model: nn.Module, CNN: nn.Module,Flow :Fast
                 inference_ensemble=config["INFERENCE_ENSEMBLE"] if "INFERENCE_ENSEMBLE" in config else 0,
                 nms_max_overlap=config["NMS_MAX"] if "NMS_MAX" in config else 0.95,
             )
+
             ed = time.time()
-            elapsed_time = ed - st
-            print(f'[{i+1}/{len(seq_names)}],时间: {elapsed_time:.2f} s')
+            fps.append(tim)
+            print(f'[{i + 1}/{len(seq_names)}],时间: {(ed - st):.2f} s,fps:{(sum(fps) / len(fps)):.2f}')
 
     else:
         submit_one_seq(
-            model=model, CNN=CNN ,dataset=dataset, Flow=Flow, p_embedding=p_embedding,
-            flow_size = flow_size,
+            model=model, CNN=CNN, dataset=dataset, Flow=Flow, p_embedding=p_embedding,
+            flow_size=flow_size,
             seq_dir=os.path.join(config["DATA_ROOT"], dataset, data_split, all_seq_names[0]),
             max_temporal_length=config["MAX_TEMPORAL_LENGTH"],
             outputs_dir=outputs_dir,
@@ -117,10 +138,10 @@ def evaluate_one_epoch(config: dict, model: nn.Module, CNN: nn.Module,Flow :Fast
             fake_submit=True,
             inference_ensemble=config["INFERENCE_ENSEMBLE"] if "INFERENCE_ENSEMBLE" in config else 0,
         )
-
-    tracker_dir =  os.path.join(outputs_dir, "tracker")
+    print(fps, sum(fps) / len(fps))
+    tracker_dir = os.path.join(outputs_dir, "tracker")
     dataset_dir = os.path.join(config["DATA_ROOT"], dataset)
-    if dataset in ["DanceTrack", "SportsMOT"]:
+    if dataset in ["DanceTrack", "SportsMOT", "BFT"]:
         gt_dir = os.path.join(dataset_dir, data_split)
     elif dataset in ["MOT17_SPLIT", "MOT15", "MOT15_V2", "MOT17"]:
         gt_dir = os.path.join(dataset_dir, data_split)
@@ -129,7 +150,7 @@ def evaluate_one_epoch(config: dict, model: nn.Module, CNN: nn.Module,Flow :Fast
 
     print(data_split, "\n", os.path.join(dataset_dir, f'{data_split}_seqmap.txt', "\n", tracker_dir))
     # Need to eval the submit tracker:
-    if dataset == "DanceTrack" or dataset == "SportsMOT":
+    if dataset == "DanceTrack" or dataset == "SportsMOT" or dataset == 'BFT':
         os.system(f"python TrackEval/scripts/run_mot_challenge.py --SPLIT_TO_EVAL {data_split}  "
                   f"--METRICS HOTA CLEAR Identity  --GT_FOLDER {gt_dir} "
                   f"--SEQMAP_FILE {os.path.join(dataset_dir, f'{data_split}_seqmap.txt')} "
@@ -144,8 +165,10 @@ def evaluate_one_epoch(config: dict, model: nn.Module, CNN: nn.Module,Flow :Fast
                   f"--NUM_PARALLEL_CORES 8 --PLOT_CURVES False "
                   f"--TRACKERS_FOLDER {outputs_dir}")
     elif dataset == "MOT17_SPLIT" or dataset == "MOT17":
-        print(f"python TrackEval/scripts/run_mot_challenge.py --SPLIT_TO_EVAL {data_split}  --METRICS HOTA CLEAR Identity  --GT_FOLDER {gt_dir} --SEQMAP_FILE {os.path.join(dataset_dir, f'{data_split}_seqmap.txt')} --SKIP_SPLIT_FOL True   --USE_PARALLEL True --NUM_PARALLEL_CORES 8 --PLOT_CURVES False --TRACKERS_FOLDER {outputs_dir} --BENCHMARK MOT17")
-        os.system(f"python TrackEval/scripts/run_mot_challenge.py --SPLIT_TO_EVAL {data_split}  --METRICS HOTA CLEAR Identity  --GT_FOLDER {gt_dir} --SEQMAP_FILE {os.path.join(dataset_dir, f'{data_split}_seqmap.txt')} --SKIP_SPLIT_FOL True   --USE_PARALLEL True --NUM_PARALLEL_CORES 8 --PLOT_CURVES False --TRACKERS_FOLDER {outputs_dir} --BENCHMARK MOT17")
+        print(
+            f"python TrackEval/scripts/run_mot_challenge.py --SPLIT_TO_EVAL {data_split}  --METRICS HOTA CLEAR Identity  --GT_FOLDER {gt_dir} --SEQMAP_FILE {os.path.join(dataset_dir, f'{data_split}_seqmap.txt')} --SKIP_SPLIT_FOL True   --USE_PARALLEL True --NUM_PARALLEL_CORES 8 --PLOT_CURVES False --TRACKERS_FOLDER {outputs_dir} --BENCHMARK MOT17")
+        os.system(
+            f"python TrackEval/scripts/run_mot_challenge.py --SPLIT_TO_EVAL {data_split}  --METRICS HOTA CLEAR Identity  --GT_FOLDER {gt_dir} --SEQMAP_FILE {os.path.join(dataset_dir, f'{data_split}_seqmap.txt')} --SKIP_SPLIT_FOL True   --USE_PARALLEL True --NUM_PARALLEL_CORES 8 --PLOT_CURVES False --TRACKERS_FOLDER {outputs_dir} --BENCHMARK MOT17")
     elif dataset == "MOT15" or dataset == "MOT15_V2":
         os.system(f"python3 TrackEval/scripts/run_mot_challenge.py --SPLIT_TO_EVAL {data_split}  "
                   f"--METRICS HOTA CLEAR Identity  --GT_FOLDER {gt_dir} "
@@ -162,18 +185,19 @@ def evaluate_one_epoch(config: dict, model: nn.Module, CNN: nn.Module,Flow :Fast
 
     return
 
+
 @torch.no_grad()
 def submit_one_seq(
-            model: nn.Module,CNN:nn.Module, dataset: str, seq_dir: str, outputs_dir: str,Flow :FastFlowNet, p_embedding :nn.Module,
-            flow_size : int,
-            max_temporal_length: int = 0,
-            det_thresh: float = 0.5, newborn_thresh: float = 0.5, area_thresh: float = 100, id_thresh: float = 0.1,
-            image_max_size: int = 1333,
-            fake_submit: bool = False,
-            inference_ensemble: int = 0,
-            nms_max_overlap :float =0.95
-        ):
-        
+        model: nn.Module, CNN: nn.Module, dataset: str, seq_dir: str, outputs_dir: str, Flow: FastFlowNet,
+        p_embedding: nn.Module,
+        flow_size: int,
+        max_temporal_length: int = 0,
+        det_thresh: float = 0.5, newborn_thresh: float = 0.5, area_thresh: float = 100, id_thresh: float = 0.1,
+        image_max_size: int = 1333,
+        fake_submit: bool = False,
+        inference_ensemble: int = 0,
+        nms_max_overlap: float = 0.95
+):
     os.makedirs(os.path.join(outputs_dir, "tracker"), exist_ok=True)
     seq_dataset = SeqDataset(seq_dir=seq_dir, dataset=dataset, width=image_max_size)
     seq_dataloader = DataLoader(seq_dataset, batch_size=1, num_workers=4, shuffle=False)
@@ -182,35 +206,37 @@ def submit_one_seq(
     device = model.device
     current_id = 0
     ids_to_results = {}
-    id_deque = OrderedSet()     # an ID deque for inference, the ID will be recycled if the dictionary is not enough.
+    id_deque = OrderedSet()  # an ID deque for inference, the ID will be recycled if the dictionary is not enough.
 
     # Trajectory history:
 
-    trajectory_history = deque(maxlen=max_temporal_length) #max_temporal_length)
+    trajectory_history = deque(maxlen=max_temporal_length)  # max_temporal_length)
 
     if fake_submit:
-        print(f"[Fake] Start >> Submit seq {seq_name.split('/')[-1]}, {len(seq_dataloader)} frames ......",end="")
+        print(f"[Fake] Start >> Submit seq {seq_name.split('/')[-1]}, {len(seq_dataloader)} frames ......", end="")
     else:
-        print(f"Start >> Submit seq {seq_name.split('/')[-1]}, {len(seq_dataloader)} frames ......",end="")
+        print(f"Start >> Submit seq {seq_name.split('/')[-1]}, {len(seq_dataloader)} frames ......", end="")
 
-
-    for i, (image, ori_image, prob, det ) in enumerate(seq_dataloader):
-
+    fps = []
+    for i, (image, ori_image, prob, det) in enumerate(seq_dataloader):
+        st = time.time()
         ori_h, ori_w = image.shape[2], image.shape[3]
         scale = ori_image.shape[1] / ori_h
         frame = tensor_list_to_nested_tensor([image[0]]).to(device)
-        #prob = prob.squeeze()
-        #det = det.squeeze()
-        prob=torch.tensor(prob)
-        det=torch.tensor(det)
-        det_idxs = [prob>det_thresh][0].flatten()
+        # prob = prob.squeeze()
+        # det = det.squeeze()
+        prob = torch.tensor(prob)
+        det = torch.tensor(det)
+        det_idxs = [prob > det_thresh][0].flatten()
         boxes = det[det_idxs]
         prob = prob[det_idxs]
         b = np.array(boxes)
-        b[:,2:]=b[:,2:]+b[:,:2]
+        if b.shape[0] != 0:
+            b[:, 2:] = b[:, 2:] + b[:, :2]
+        else:
+            b = torch.empty((0, 4))
 
-
-        # indices = util.non_max_suppression(
+        # indices = util.non_max_suppression(  # 非极大值抑制
         #     b, nms_max_overlap, np.array(prob.flatten()))
         # boxes = boxes[indices].to(device)
         # prob = prob[indices].to(device)
@@ -224,84 +250,113 @@ def submit_one_seq(
             images_first = ori_image
         images_second = ori_image
         record_images = ori_image
+
+        flow_dir = os.path.join("data/flow", seq_name.split('/')[-1])
+        os.makedirs(flow_dir, exist_ok=True)
+        flow_path = os.path.join(flow_dir, f"{seq_name.split('/')[-1]}_frame_{i}.npy")
+
+        # 检查文件是否存在
+
         FLOW_images = get_flow(images_first, images_second, Flow)
+
+        # 加载到CPU，然后转移到当前设备
 
         predicted_flow = -FLOW_images.permute(0, 2, 3, 1)
         bz, h, w, c = predicted_flow.shape
 
         x_pos = torch.arange(w).reshape((1, w)).repeat((h, 1)).unsqueeze(0).to(device)
         y_pos = torch.arange(h).reshape((h, 1)).repeat((1, w)).unsqueeze(0).to(device)
-  
 
         FLOW_images[:, 0, :, :] = FLOW_images[:, 0, :, :] / w  # 归一化
         FLOW_images[:, 1, :, :] = FLOW_images[:, 1, :, :] / h
 
-        FLOW_images =  FLOW_images.squeeze()
+        FLOW_images = FLOW_images.squeeze()
         ori_image = ori_image.squeeze()
-        #ori_image = torch.cat((images_first.squeeze(),ori_image),dim=0)
+        # ori_image = torch.cat((images_first.squeeze(),ori_image),dim=0)
         all_boxes = []
         for box in boxes:
-            
             x, y, w, h = box
-        
+
             image_Crop = ori_image[
                          :,
-                         max(0, math.floor(y )):min(ori_h, math.ceil(y + h )),
-                         max(0, math.floor(x )):min(ori_w, math.ceil(x + w ))
+                         max(0, math.floor(y)):min(ori_h, math.ceil(y + h)),
+                         max(0, math.floor(x)):min(ori_w, math.ceil(x + w))
                          ]
             # half_size = (int(flow_size) - 1) // 2
 
             image_np = image_Crop.cpu().permute(1, 2, 0).numpy()
 
-
+            # 2. 显示图像
             # plt.imshow(image_np)
-            # plt.axis('off')
+            # plt.axis('off')  # 关闭坐标轴
             # plt.show()
-            
-            
 
             flow_Crop = FLOW_images[
                         :,
                         max(0, math.floor(y)):min(ori_h, math.ceil(y + h)),
                         max(0, math.floor(x)):min(ori_w, math.ceil(x + w))
                         ]
-                        
-            all_boxes.append(torch.tensor([(x+w/2)/ori_w,(y+h/2)/ori_h,w/ori_w,h/ori_h]))
+
+            all_boxes.append(torch.tensor([(x + w / 2) / ori_w, (y + h / 2) / ori_h, w / ori_w, h / ori_h]))
             flow_Crop = transform1(flow_Crop)
             # mv = torch.cat((flow_Crop.flatten(), ((x + w)/ori_w).unsqueeze(0), ((y + h)/ori_h).unsqueeze(0)))
-            #mv = torch.cat((flow_Crop.flatten(), ((x + w/2) / ori_w).unsqueeze(0), ((y + h/2) / ori_h).unsqueeze(0)))
-            mv = flow_Crop #.flatten()
-            
+            # mv = torch.cat((flow_Crop.flatten(), ((x + w/2) / ori_w).unsqueeze(0), ((y + h/2) / ori_h).unsqueeze(0)))
+            mv = flow_Crop  # .flatten()
+
             image_Resize = transform(image_Crop)
             crop_images.append(image_Resize)
             flow_frame.append(mv)
         if len(all_boxes) > 0:
             all_boxes = torch.stack(all_boxes, dim=0).float().to(device)
-         
+
             flow_frame = torch.stack(flow_frame).float().to(device)
             crop_images = torch.stack(crop_images).float().to(device)
             output1 = crop_images
-            #output1, output2 = torch.split(crop_images, 3, dim=1)
-            output1 = CNN(output1)
-            #output2 = CNN(output2)
-            output1 = output1.unsqueeze(2).unsqueeze(3)
-            #output2 = output2.unsqueeze(2).unsqueeze(3)
-        
-            flow_frame = flow_frame
-            
-            output = get_model(model).GFFfuse(output1,flow_frame).squeeze()
-            
-            position_embedding = p_embedding(all_boxes)
-            
-            
-            output = output + position_embedding  
-            
-        else:
-            output = torch.empty(0,256).to(device)
-       
-        box_results = boxes.float().to(device)
-        box_results[:,2:] += box_results[:,:2]
+            # output1, output2 = torch.split(crop_images, 3, dim=1)
 
+            CNN_dir = os.path.join("data/CNN", seq_name.split('/')[-1])
+            # os.makedirs(CNN_dir, exist_ok=True)
+            CNN_path = os.path.join(CNN_dir, f"{seq_name.split('/')[-1]}_frame_{i}.npy")
+
+            # 检查文件是否存在
+
+            # 加载到CPU，然后转移到当前设备
+            output1 = CNN(output1)
+
+            # if os.path.exists(CNN_path):
+            # 直接加载PyTorch张量
+            #    output1 = torch.load(CNN_path, map_location='cpu').to(device)
+            # print(f"Loaded flow tensor from cache: {flow_path}")
+            # else:
+            # 计算光流
+            #   output1 = CNN(output1)
+
+            # 保存为PyTorch张量格式
+            #  torch.save(output1.cpu(), CNN_path)
+            #  print(f"Computed and saved flow tensor: {flow_path}")
+
+            # output2 = CNN(output2)
+            output1 = output1.unsqueeze(2).unsqueeze(3)
+            # output2 = output2.unsqueeze(2).unsqueeze(3)
+
+            flow_frame = flow_frame
+
+            output = get_model(model).GFFfuse(output1, flow_frame).squeeze()
+
+            position_embedding = p_embedding(all_boxes)
+
+            output = output + position_embedding
+
+        else:
+            output = torch.empty(0, 256).to(device)
+
+        if b.shape[0] == 0:
+            box_results = b.float().to(device)
+        else:
+            box_results = boxes.float().to(device)
+
+        box_results[:, 2:] += box_results[:, :2]
+        # 限制 x1, y1, x2, y2 的范围
         box_results = torch.stack([
             torch.clamp(box_results[:, 0], min=0, max=ori_w),  # x1 限制在 [0, ori_w] 之间
             torch.clamp(box_results[:, 1], min=0, max=ori_h),  # y1 限制在 [0, ori_h] 之间
@@ -316,8 +371,6 @@ def submit_one_seq(
         #
         # Decoding the current objects' IDs
 
-
-
         assert max_temporal_length - 1 > 0, f"MOTIP need at least T=1 trajectory history, " \
                                             f"but get T={max_temporal_length - 1} history in Eval setting."
         current_tracks = Instances(image_size=(0, 0))
@@ -327,8 +380,8 @@ def submit_one_seq(
                                           dtype=torch.long, device=current_tracks.outputs.device)
         current_tracks.confs = prob.to(device)
         trajectory_history.append(current_tracks)
-        if len(trajectory_history) == 1:    # first frame, do not need decoding:
-            newborn_filter = (trajectory_history[0].confs > newborn_thresh).reshape(-1, )   # filter by newborn
+        if len(trajectory_history) == 1:  # first frame, do not need decoding:
+            newborn_filter = (trajectory_history[0].confs > newborn_thresh).reshape(-1, )  # filter by newborn
             trajectory_history[0] = trajectory_history[0][newborn_filter]
             box_results = box_results[newborn_filter.cpu()]
             ids = torch.tensor([current_id + _ for _ in range(len(trajectory_history[-1]))],
@@ -352,15 +405,14 @@ def submit_one_seq(
                 id_thresh=id_thresh,
                 newborn_thresh=newborn_thresh,
                 inference_ensemble=inference_ensemble,
-                
-            )   # already update the trajectory history/ids_to_results/current_id/id_deque in this function
+
+            )  # already update the trajectory history/ids_to_results/current_id/id_deque in this function
             id_results = []
             for _ in ids:
                 id_results.append(ids_to_results[_])
             id_results = torch.tensor(id_results, dtype=torch.long)
             if boxes_keep is not None:
                 box_results = box_results[boxes_keep.cpu()]
-
 
         # Output to tracker file:
         if fake_submit is False:
@@ -372,11 +424,11 @@ def submit_one_seq(
                                                             f"len(Boxes)={len(box_results)}"
                 for obj_id, box in zip(id_results, box_results):
                     obj_id = int(obj_id.item())
-                    if len(box) < 4 :
+                    if len(box) < 4:
                         box = box[0]
-                    box = box*scale
+                    box = box * scale
                     x1, y1, x2, y2 = box.tolist()
-                    if dataset in ["DanceTrack", "MOT17", "SportsMOT", "MOT17_SPLIT", "MOT15", "MOT15_V2"]:
+                    if dataset in ["DanceTrack", "MOT17", "SportsMOT", "MOT17_SPLIT", "MOT15", "MOT15_V2", "BFT"]:
                         result_line = f"{i + 1}," \
                                       f"{obj_id}," \
                                       f"{x1},{y1},{x2 - x1},{y2 - y1},1,-1,-1,-1\n"
@@ -385,19 +437,24 @@ def submit_one_seq(
                     file.write(result_line)
 
         images_first = record_images
+        ed = time.time()
+        recard = 1 / (ed - st)
+        fps.append(recard)
         print(
-            f"\rinference : [{i}/{len(seq_dataloader)}] ",
+            f"\rinference : [{i}/{len(seq_dataloader)}] ,fps = {recard:.2f}",
             end="")
+    print(sum(fps) / len(fps))
     if fake_submit:
         print()
         print(f"[Fake] Finish >> Submit seq {seq_name.split('/')[-1]}. ")
     else:
         print()
         print(f"Finish >> Submit seq {seq_name.split('/')[-1]}. ")
-    return
+    return sum(fps) / len(fps)
+
 
 def get_seq_names(data_root: str, dataset: str, data_split: str):
-    if dataset in ["DanceTrack", "SportsMOT", "MOT17", "MOT17_SPLIT"]:
+    if dataset in ["DanceTrack", "SportsMOT", "MOT17", "MOT17_SPLIT", "BFT"]:
         dataset_dir = os.path.join(data_root, dataset, data_split)
         return sorted(os.listdir(dataset_dir))
     else:
@@ -412,4 +469,3 @@ def get_eval_metrics_dict(metric_path: str):
         n: float(v) for n, v in zip(metric_names, metric_values)
     }
     return metrics
-

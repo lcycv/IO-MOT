@@ -41,7 +41,9 @@ class GIP(nn.Module):
             dataname = 'dance'
         elif config['DATASETS'] == ['SportsMOT']:
             dataname = 'sports'
-        elif config['DATASETS'] == ['MOT17'] or ['MOT17' , 'CrowdHuman', 'CrowdHuman']:
+        elif config['DATASETS'] == ['BFT']:
+            dataname = 'bft'
+        elif config['DATASETS'] == ['MOT17'] or ['MOT17' , 'CrowdHuman', 'CrowdHuman'] or config['DATASETS'] == ["MOT17_SPLIT"]:
             dataname = 'mot'
         else:
             assert False, "Dataset not recognized"

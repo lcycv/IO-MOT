@@ -1,0 +1,25 @@
+SUPER_CONFIG_PATH: ./configs/IOMOT_dancetrack.yaml
+
+DATASETS: [BFT]
+DATASET_SPLITS: [train]
+# Inference:
+INFERENCE_MODEL: /home1/lcy/FIP-v3/outputs/IOMOT-BFT-moreepoch/checkpoint_49.pth
+INFERENCE_DATASET: BFT
+INFERENCE_SPLIT: test
+
+AVAILABLE_GPUS:  3,2,4, 
+USE_DISTRIBUTED:  True
+
+PERTRAIN: False
+PERTRAIN_PATH: /home1/lcy/FIP-v3/outputs/IOMOT-BFT/checkpoint_59.pth
+
+
+MAX_TEMPORAL_LENGTH: 20 
+SAMPLE_LENGTHS: [20]
+NEWBORN_THRESH: 0.7
+DET_THRESH: 0.5 #care yolox
+EPOCHS: 60  #18
+SCHEDULER_MILESTONES: [20, 30, 40 ]
+ACCUMULATE_STEPS:   16
+
+OUTPUTS_DIR: ./outputs/IOMOT-BFT-moreepoch

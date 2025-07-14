@@ -9,10 +9,9 @@
 
 ## Generate GT files
 
-For the MOT17 and CrowdHuman datasets, you’ll need to use the provided script to convert their ground truth files to the format we require:
+For the BFT  datasets, you’ll need to use the provided script to convert their ground truth files to the format we require:
 
-- For MOT17: [gen_mot17_gts.py](/data/gen_mot17_gts.py)
-- For CrowdHuman: [gen_crowdhuman_gts.py](/data/gen_crowdhuman_gts.py)
+- For BFT: [create_bft.py](/data/create_bft.py)
 
 :pushpin: You need to modify the paths in the script according to your requirements.
 

@@ -4,7 +4,7 @@
 - Get the [detection_results](https://github.com/Kroery/DiffMOT/releases/download/v1.1/Detections.zip) 
 - [DanceTrack](https://github.com/DanceTrack/DanceTrack)
 - [SportsMOT](https://github.com/MCG-NJU/SportsMOT)
-- [MOT17](https://motchallenge.net/data/MOT17/)
+- [BFT](https://george-zhuang.github.io/nettrack/)
 - [CrowdHuman](https://www.crowdhuman.org/)
 
 ## Generate GT files
@@ -36,28 +36,14 @@ For the MOT17 and CrowdHuman datasets, you’ll need to use the provided script 
   │ ├── train_seqmap.txt
   │ ├── val_seqmap.txt
   │ └── test_seqmap.txt
-  ├── BFT/
-  │ ├── train/
-  │ ├── val/
-  │ ├── test/
-  │ ├── detections_yolox_x/
-  │ ├── train_seqmap.txt
-  │ ├── val_seqmap.txt
-  │ └── test_seqmap.txt
-  ├── MOT17/
-  │ ├── detections_yolox_x/
-  │ ├── images/
-  │ │ ├── train/     # unzip from MOT17, you need to delete some files, see the below the instructions
-  │ │ └── test/      # unzip from MOT17
-  │ └── gts/
-  │   └── train/     # generate by ./data/gen_mot17_gts.py
-  └── CrowdHuman/
-    ├── images/
-    │ ├── train/     # unzip from CrowdHuman
-    │ └── val/       # unzip from CrowdHuman
-    └── gts/
-      ├── train/     # generate by ./data/gen_crowdhuman_gts.py
-      └── val/       # generate by ./data/gen_crowdhuman_gts.py
+  └── BFT/
+   ├── train/
+   ├── val/
+   ├── test/
+   ├── detections_yolox_x/
+   ├── train_seqmap.txt
+   ├── val_seqmap.txt
+   └── test_seqmap.txt
+ 
+    
 ```
-
-:warning: Since each video sequence in MOT17 is stored three times, for each training video sequence, you should delete the other two sequences to achieve deduplication. For instance, in my experiment, I only retained the ‘xxx-DPM’ sequences.”

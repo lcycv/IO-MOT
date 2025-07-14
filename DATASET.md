@@ -5,7 +5,7 @@
 - [DanceTrack](https://github.com/DanceTrack/DanceTrack)
 - [SportsMOT](https://github.com/MCG-NJU/SportsMOT)
 - [BFT](https://george-zhuang.github.io/nettrack/)
-- [CrowdHuman](https://www.crowdhuman.org/)
+
 
 ## Generate GT files
 

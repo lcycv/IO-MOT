@@ -4,6 +4,16 @@
 
 ---
 
+
+| Dataset        | HOTA | DETA | ASSA| MOTA | IDF1|                                Weight                               |           
+| :------------- | :--: | :--: | :--: | :--: | :--: | :-----------------------------------------------------------------: | 
+| **DanceTrack** | 67.5| 81.5|56.0 | 91.0 |69.9 |[📥 download](https://drive.google.com/file/d/1Fr5iFAxXdvmahW23KBkIMKdxrfq9GPIm/view?usp=drive_link) |
+| **SportsMOT**  | 73.2 | 84.9 |  63.1 | 94.2 |  75.9 |  [📥 download](https://drive.google.com/file/d/1EKG_UQMdQPZQtnGB4H9cZviBhzfn96Ih/view?usp=drive_link)| 
+| **BFT**     |  {68.6}  |   67.3  |  70.0 |   73.3  |  80.2 |   [📥 download](https://drive.google.com/file/d/1mgG_jK-oea1UYf_ACZXu0Zp-pv8BT4GJ/view?usp=drive_link)   | 
+---
+🔗 **Detection Results & FastReID Pretrained Weights:** [Google Drive](https://drive.google.com/drive/folders/1HViyb73bdv4ZT05sv7kKAygIyu3kNDU8?usp=drive_link)  
+
+
 ## 📌 Quick Start  
 ## Instructions
 ```shell

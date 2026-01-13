@@ -5,11 +5,11 @@
 ---
 
 
-| Dataset        | HOTA | DETA | ASSA| MOTA | IDF1|                                Weight                               |           
-| :------------- | :--: | :--: | :--: | :--: | :--: | :-----------------------------------------------------------------: | 
-| **DanceTrack** | 67.5| 81.5|56.0 | 91.0 |69.9 |[result](https://drive.google.com/file/d/1vytRYhRMRk5Lvat7W0QxRob9Wx2P0iDr/view?usp=drive_link)|[📥 download](https://drive.google.com/file/d/1xKwtflVf3HWfpLMyh5bD_J9_7kgE6zjR/view?usp=drive_link) |  
-| **SportsMOT**  | 73.2 | 84.9 |  63.1 | 94.2 |  75.9 |[result](https://drive.google.com/file/d/1UeNmOaN0qrZ0IItXpWmiSZoyGq0px2aj/view?usp=drive_link)|  [📥 download](https://drive.google.com/file/d/1EKG_UQMdQPZQtnGB4H9cZviBhzfn96Ih/view?usp=drive_link)| 
-| **BFT**     |  68.6 |   67.3  |  70.0 |   73.3  |  80.2|[result](https://drive.google.com/file/d/1mgG_jK-oea1UYf_ACZXu0Zp-pv8BT4GJ/view?usp=drive_link) |   [📥 download](https://drive.google.com/file/d/1mgG_jK-oea1UYf_ACZXu0Zp-pv8BT4GJ/view?usp=drive_link)   | 
+| Dataset        | HOTA | DETA | ASSA| MOTA | IDF1|                              Result                              |                                    Weight                               |          
+| :------------- | :--: | :--: | :--: | :--: | :--: | :-----------------------------------------------------------------: | | :-----------------------------------------------------------------: | 
+| **DanceTrack** | 67.5| 81.5|56.0 | 91.0 |69.9 |[📥 download](https://drive.google.com/file/d/1vytRYhRMRk5Lvat7W0QxRob9Wx2P0iDr/view?usp=drive_link)|[📥 download](https://drive.google.com/file/d/1xKwtflVf3HWfpLMyh5bD_J9_7kgE6zjR/view?usp=drive_link) |  
+| **SportsMOT**  | 73.2 | 84.9 |  63.1 | 94.2 |  75.9 |[📥 download](https://drive.google.com/file/d/1UeNmOaN0qrZ0IItXpWmiSZoyGq0px2aj/view?usp=drive_link)|  [📥 download](https://drive.google.com/file/d/1EKG_UQMdQPZQtnGB4H9cZviBhzfn96Ih/view?usp=drive_link)| 
+| **BFT**     |  68.6 |   67.3  |  70.0 |   73.3  |  80.2|[📥 download](https://drive.google.com/file/d/1mgG_jK-oea1UYf_ACZXu0Zp-pv8BT4GJ/view?usp=drive_link) |   [📥 download](https://drive.google.com/file/d/1mgG_jK-oea1UYf_ACZXu0Zp-pv8BT4GJ/view?usp=drive_link)   | 
 ---
 🔗 **Detection Results & FastReID Pretrained Weights:** [Google Drive](https://drive.google.com/drive/folders/1HViyb73bdv4ZT05sv7kKAygIyu3kNDU8?usp=drive_link)  
 

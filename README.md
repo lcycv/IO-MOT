@@ -50,3 +50,6 @@ python main.py \
     --outputs-dir <save_dir> \
     --inference-dataset <dataset_name>
 ```
+
+### :bouquet: Acknowledgements
+This project is built upon [MOTIP](https://github.com/MCG-NJU/MOTIP/blob/prev-engine), [FastFlowNet](https://github.com/ltkong218/FastFlowNet), [DiffMOT]([https://github.com/IDEA-Research/DAB-DETR](https://github.com/Kroery/DiffMOT)), [FastReID](https://github.com/JDAI-CV/fast-reid),[TrackEval](https://github.com/JonathonLuiten/TrackEval). Thanks to the contributors of these great codebases.

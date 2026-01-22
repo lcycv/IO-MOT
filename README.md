@@ -51,5 +51,14 @@ python main.py \
     --inference-dataset <dataset_name>
 ```
 
-### :bouquet: Acknowledgements
-This project is built upon [MOTIP](https://github.com/MCG-NJU/MOTIP/blob/prev-engine), [FastFlowNet](https://github.com/ltkong218/FastFlowNet), [DiffMOT]([https://github.com/IDEA-Research/DAB-DETR](https://github.com/Kroery/DiffMOT)), [FastReID](https://github.com/JDAI-CV/fast-reid),[TrackEval](https://github.com/JonathonLuiten/TrackEval). Thanks to the contributors of these great codebases.
+## :bouquet: Acknowledgements
+
+This project is built upon or makes use of the following open-source projects:
+
+- [MOTIP](https://github.com/MCG-NJU/MOTIP)
+- [FastFlowNet](https://github.com/ltkong218/FastFlowNet)
+- [DiffMOT](https://github.com/Kroery/DiffMOT)
+- [FastReID](https://github.com/JDAI-CV/fast-reid)
+- [TrackEval](https://github.com/JonathonLuiten/TrackEval)
+
+We sincerely thank the authors and contributors for making their code publicly available.
